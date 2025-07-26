@@ -4,7 +4,7 @@ import CargoList from "../components/CargoList/CargoList"
 
 interface CargoSidebarProps {
   cargos: any[]
-  onSelectCargo: (id: number) => void
+  onSelectCargo: (id: any) => void
 }
 
 const CargoSidebar = ({ cargos, onSelectCargo }: CargoSidebarProps) => {

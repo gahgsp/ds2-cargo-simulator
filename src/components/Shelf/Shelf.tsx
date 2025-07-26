@@ -4,8 +4,8 @@ import Model from "../../../Model"
 import { Suspense } from "react"
 
 interface ShelfProps {
-  cargos: { id: number; description: string }[]
-  selectedModel?: number | null
+  cargos: any[]
+  selectedModel?: any
 }
 
 const Shelf = ({ cargos, selectedModel = null }: ShelfProps) => {
@@ -32,7 +32,7 @@ const Shelf = ({ cargos, selectedModel = null }: ShelfProps) => {
             position={[positionX, positionY, positionZ]}
             scale={[0.3, 0.3, 0.3]}
             rotation={[0, 0, 0]}
-            isSelected={selectedModel === count}
+            isSelected={selectedModel && selectedModel.id === count}
           />
         )
 

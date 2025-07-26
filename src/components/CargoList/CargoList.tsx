@@ -35,14 +35,14 @@ const styles = {
 const CargoList = ({ cargos, onSelectCargo }: CargoListProps) => {
   return (
     <Box sx={styles.container}>
-      {cargos.map((card) => (
-        <Box key={card.id} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }} onClick={(e) => {
+      {cargos.map((cargo) => (
+        <Box key={cargo.id} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }} onClick={(e) => {
           e.preventDefault()
-          onSelectCargo(card.id)
+          onSelectCargo(cargo)
         }}>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <Checkbox />
-            <Typography sx={{ color: 'white' }}>Cargo Description goes here!</Typography>
+            <Typography sx={{ color: 'white' }}>{cargo.title}</Typography>
           </Box>
           <Box sx={{ display: 'flex' }}>
             <Typography sx={styles.size}>M</Typography>

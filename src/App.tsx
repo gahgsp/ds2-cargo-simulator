@@ -1,7 +1,8 @@
-import { Grid } from '@mui/material'
+import { Box, Grid } from '@mui/material'
 import { useState } from 'react'
 import Shelf from './components/Shelf/Shelf'
 import CargoSidebar from './containers/CargoSidebar'
+import CargoDetails from './components/CargoDetails/CargoDetails'
 
 const styles = {
   container: {
@@ -16,7 +17,7 @@ const styles = {
 }
 
 function App() {
-  const [selectedCard, setSelectedCard] = useState(null)
+  const [selectedCargo, setSelectedCargo] = useState(null)
 
   const layeredCargos = [
     {
@@ -24,40 +25,40 @@ function App() {
       orderDescription: 'Deliver Unidentified Samples of Stranded Fish',
       totalWeight: 272,
       cargos: [
-        { id: 0, description: 'Unidentified Fish Sample' },
-        { id: 1, description: 'Unidentified Fish Sample' },
-        { id: 2, description: 'Unidentified Fish Sample' },
-        { id: 3, description: 'Unidentified Fish Sample' },
-        { id: 4, description: 'Unidentified Fish Sample' },
-        { id: 5, description: 'Unidentified Fish Sample' },
-        { id: 6, description: 'Unidentified Fish Sample' },
-        { id: 7, description: 'Unidentified Fish Sample' },
-        { id: 8, description: 'Unidentified Fish Sample' },
-        { id: 9, description: 'Unidentified Fish Sample' },
-        { id: 10, description: 'Unidentified Fish Sample' },
-        { id: 11, description: 'Unidentified Fish Sample' },
-        { id: 12, description: 'Unidentified Fish Sample' },
-        { id: 13, description: 'Unidentified Fish Sample' },
-        { id: 14, description: 'Unidentified Fish Sample' },
-        { id: 15, description: 'Unidentified Fish Sample' },
-        { id: 16, description: 'Unidentified Fish Sample' },
-        { id: 17, description: 'Unidentified Fish Sample' },
-        { id: 18, description: 'Unidentified Fish Sample' },
-        { id: 19, description: 'Unidentified Fish Sample' },
-        { id: 20, description: 'Unidentified Fish Sample' },
-        { id: 21, description: 'Unidentified Fish Sample' },
-        { id: 22, description: 'Unidentified Fish Sample' },
-        { id: 23, description: 'Unidentified Fish Sample' },
-        { id: 24, description: 'Unidentified Fish Sample' },
-        { id: 25, description: 'Unidentified Fish Sample' },
-        { id: 26, description: 'Unidentified Fish Sample' },
-        { id: 27, description: 'Unidentified Fish Sample' },
-        { id: 28, description: 'Unidentified Fish Sample' },
-        { id: 29, description: 'Unidentified Fish Sample' },
-        { id: 30, description: 'Unidentified Fish Sample' },
-        { id: 31, description: 'Unidentified Fish Sample' },
-        { id: 32, description: 'Unidentified Fish Sample' },
-        { id: 33, description: 'Unidentified Fish Sample' },
+        { id: 0, title: 'Unidentified Fish Sample', description: 'Samples of fish recovered from a BT area. It is possible that these creatures crossed over from the other side at the same time as the BTs.' },
+        { id: 1, title: 'Unidentified Fish Sample', description: 'Samples of fish recovered from a BT area. It is possible that these creatures crossed over from the other side at the same time as the BTs.' },
+        { id: 2, title: 'Unidentified Fish Sample', description: 'Samples of fish recovered from a BT area. It is possible that these creatures crossed over from the other side at the same time as the BTs.' },
+        { id: 3, title: 'Unidentified Fish Sample', description: 'Samples of fish recovered from a BT area. It is possible that these creatures crossed over from the other side at the same time as the BTs.' },
+        { id: 4, title: 'Unidentified Fish Sample', description: 'Samples of fish recovered from a BT area. It is possible that these creatures crossed over from the other side at the same time as the BTs.' },
+        { id: 5, title: 'Unidentified Fish Sample', description: 'Samples of fish recovered from a BT area. It is possible that these creatures crossed over from the other side at the same time as the BTs.' },
+        { id: 6, title: 'Unidentified Fish Sample', description: 'Samples of fish recovered from a BT area. It is possible that these creatures crossed over from the other side at the same time as the BTs.' },
+        { id: 7, title: 'Unidentified Fish Sample', description: 'Samples of fish recovered from a BT area. It is possible that these creatures crossed over from the other side at the same time as the BTs.' },
+        { id: 8, title: 'Unidentified Fish Sample', description: 'Samples of fish recovered from a BT area. It is possible that these creatures crossed over from the other side at the same time as the BTs.' },
+        { id: 9, title: 'Unidentified Fish Sample', description: 'Samples of fish recovered from a BT area. It is possible that these creatures crossed over from the other side at the same time as the BTs.' },
+        { id: 10, title: 'Unidentified Fish Sample', description: 'Samples of fish recovered from a BT area. It is possible that these creatures crossed over from the other side at the same time as the BTs.' },
+        { id: 11, title: 'Unidentified Fish Sample', description: 'Samples of fish recovered from a BT area. It is possible that these creatures crossed over from the other side at the same time as the BTs.' },
+        { id: 12, title: 'Unidentified Fish Sample', description: 'Samples of fish recovered from a BT area. It is possible that these creatures crossed over from the other side at the same time as the BTs.' },
+        { id: 13, title: 'Unidentified Fish Sample', description: 'Samples of fish recovered from a BT area. It is possible that these creatures crossed over from the other side at the same time as the BTs.' },
+        { id: 14, title: 'Unidentified Fish Sample', description: 'Samples of fish recovered from a BT area. It is possible that these creatures crossed over from the other side at the same time as the BTs.' },
+        { id: 15, title: 'Unidentified Fish Sample', description: 'Samples of fish recovered from a BT area. It is possible that these creatures crossed over from the other side at the same time as the BTs.' },
+        { id: 16, title: 'Unidentified Fish Sample', description: 'Samples of fish recovered from a BT area. It is possible that these creatures crossed over from the other side at the same time as the BTs.' },
+        { id: 17, title: 'Unidentified Fish Sample', description: 'Samples of fish recovered from a BT area. It is possible that these creatures crossed over from the other side at the same time as the BTs.' },
+        { id: 18, title: 'Unidentified Fish Sample', description: 'Samples of fish recovered from a BT area. It is possible that these creatures crossed over from the other side at the same time as the BTs.' },
+        { id: 19, title: 'Unidentified Fish Sample', description: 'Samples of fish recovered from a BT area. It is possible that these creatures crossed over from the other side at the same time as the BTs.' },
+        { id: 20, title: 'Unidentified Fish Sample', description: 'Samples of fish recovered from a BT area. It is possible that these creatures crossed over from the other side at the same time as the BTs.' },
+        { id: 21, title: 'Unidentified Fish Sample', description: 'Samples of fish recovered from a BT area. It is possible that these creatures crossed over from the other side at the same time as the BTs.' },
+        { id: 22, title: 'Unidentified Fish Sample', description: 'Samples of fish recovered from a BT area. It is possible that these creatures crossed over from the other side at the same time as the BTs.' },
+        { id: 23, title: 'Unidentified Fish Sample', description: 'Samples of fish recovered from a BT area. It is possible that these creatures crossed over from the other side at the same time as the BTs.' },
+        { id: 24, title: 'Unidentified Fish Sample', description: 'Samples of fish recovered from a BT area. It is possible that these creatures crossed over from the other side at the same time as the BTs.' },
+        { id: 25, title: 'Unidentified Fish Sample', description: 'Samples of fish recovered from a BT area. It is possible that these creatures crossed over from the other side at the same time as the BTs.' },
+        { id: 26, title: 'Unidentified Fish Sample', description: 'Samples of fish recovered from a BT area. It is possible that these creatures crossed over from the other side at the same time as the BTs.' },
+        { id: 27, title: 'Unidentified Fish Sample', description: 'Samples of fish recovered from a BT area. It is possible that these creatures crossed over from the other side at the same time as the BTs.' },
+        { id: 28, title: 'Unidentified Fish Sample', description: 'Samples of fish recovered from a BT area. It is possible that these creatures crossed over from the other side at the same time as the BTs.' },
+        { id: 29, title: 'Unidentified Fish Sample', description: 'Samples of fish recovered from a BT area. It is possible that these creatures crossed over from the other side at the same time as the BTs.' },
+        { id: 30, title: 'Unidentified Fish Sample', description: 'Samples of fish recovered from a BT area. It is possible that these creatures crossed over from the other side at the same time as the BTs.' },
+        { id: 31, title: 'Unidentified Fish Sample', description: 'Samples of fish recovered from a BT area. It is possible that these creatures crossed over from the other side at the same time as the BTs.' },
+        { id: 32, title: 'Unidentified Fish Sample', description: 'Samples of fish recovered from a BT area. It is possible that these creatures crossed over from the other side at the same time as the BTs.' },
+        { id: 33, title: 'Unidentified Fish Sample', description: 'Samples of fish recovered from a BT area. It is possible that these creatures crossed over from the other side at the same time as the BTs.' },
       ]
     }
   ]
@@ -66,11 +67,14 @@ function App() {
     <Grid container sx={styles.container}>
       {/* Left Column - Cargos */}
       <Grid size={5} sx={{ height: '100%' }}>
-        <CargoSidebar cargos={layeredCargos} onSelectCargo={(id) => setSelectedCard(id)} />
+        <CargoSidebar cargos={layeredCargos} onSelectCargo={(cargo) => setSelectedCargo(cargo)} />
+        <Box>
+          {selectedCargo && <CargoDetails cargo={selectedCargo} />}
+        </Box>
       </Grid>
       {/* Right Column - 3D Scene */}
       <Grid size={7}>
-        <Shelf cargos={layeredCargos.flatMap((delivery) => delivery.cargos)} selectedModel={selectedCard} />
+        <Shelf cargos={layeredCargos.flatMap((delivery) => delivery.cargos)} selectedModel={selectedCargo} />
       </Grid>
     </Grid>
   )
