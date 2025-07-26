@@ -1,8 +1,9 @@
 import { Avatar, Box, Grid, LinearProgress, Typography } from "@mui/material"
 import AssignmentIcon from '@mui/icons-material/Assignment';
+import type { Cargo } from "../../interfaces";
 
 interface CargoDetailsProps {
-  cargo: any
+  cargo: Cargo
 }
 
 const CargoDetails = ({ cargo }: CargoDetailsProps) => {

@@ -1,8 +1,9 @@
 import { Box, Checkbox, Typography } from "@mui/material"
+import type { Cargo } from "../../interfaces"
 
 interface CargoListProps {
-  cargos: any[]
-  onSelectCargo: (id: number) => void
+  cargos: Cargo[]
+  onSelectCargo: (selectedCargo: Cargo) => void
 }
 
 const styles = {
@@ -45,8 +46,8 @@ const CargoList = ({ cargos, onSelectCargo }: CargoListProps) => {
             <Typography sx={{ color: 'white' }}>{cargo.title}</Typography>
           </Box>
           <Box sx={{ display: 'flex' }}>
-            <Typography sx={styles.size}>M</Typography>
-            <Typography sx={{ color: 'white' }}>8.0</Typography>
+            <Typography sx={styles.size}>{cargo.size}</Typography>
+            <Typography sx={{ color: 'white' }}>{cargo.weight}</Typography>
           </Box>
         </Box>
       ))}

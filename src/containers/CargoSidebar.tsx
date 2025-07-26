@@ -1,13 +1,14 @@
 import { Accordion, AccordionDetails, AccordionSummary, Box, Typography } from "@mui/material"
 import CargoHeader from "../components/CargoHeader/CargoHeader"
 import CargoList from "../components/CargoList/CargoList"
+import type { Cargo, Delivery } from "../interfaces"
 
 interface CargoSidebarProps {
-  cargos: any[]
-  onSelectCargo: (id: any) => void
+  deliveries: Delivery[]
+  onSelectCargo: (selectedCargo: Cargo) => void
 }
 
-const CargoSidebar = ({ cargos, onSelectCargo }: CargoSidebarProps) => {
+const CargoSidebar = ({ deliveries, onSelectCargo }: CargoSidebarProps) => {
   return (
     <Box sx={{
       display: 'flex',
@@ -20,10 +21,10 @@ const CargoSidebar = ({ cargos, onSelectCargo }: CargoSidebarProps) => {
         flex: 1,
         overflowY: 'auto',
       }}>
-        {cargos.map((delivery) => (
-          <Accordion defaultExpanded={true} key={delivery.orderDescription} sx={{ backgroundColor: 'transparent', border: 'none', borderShadow: 'none' }} elevation={0}>
+        {deliveries.map((delivery) => (
+          <Accordion defaultExpanded={true} key={delivery.description} sx={{ backgroundColor: 'transparent', border: 'none', borderShadow: 'none' }} elevation={0}>
             <AccordionSummary>
-              <Typography sx={{ color: 'white' }}>[{delivery.type}] {delivery.orderDescription} - {delivery.totalWeight}</Typography>
+              <Typography sx={{ color: 'white' }}>[{delivery.type}] {delivery.description} - {delivery.totalWeight}</Typography>
             </AccordionSummary>
             <AccordionDetails>
               <CargoList cargos={delivery.cargos} onSelectCargo={onSelectCargo} />

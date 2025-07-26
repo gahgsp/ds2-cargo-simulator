@@ -2,13 +2,14 @@ import { Environment } from "@react-three/drei"
 import { Canvas } from "@react-three/fiber"
 import Model from "../../../Model"
 import { Suspense } from "react"
+import type { Cargo } from "../../interfaces"
 
 interface ShelfProps {
-  cargos: any[]
-  selectedModel?: any
+  cargos: Cargo[]
+  selectedCargo: Cargo | null
 }
 
-const Shelf = ({ cargos, selectedModel = null }: ShelfProps) => {
+const Shelf = ({ cargos, selectedCargo = null }: ShelfProps) => {
   const models = []
   const spacing = 16
 
@@ -32,7 +33,7 @@ const Shelf = ({ cargos, selectedModel = null }: ShelfProps) => {
             position={[positionX, positionY, positionZ]}
             scale={[0.3, 0.3, 0.3]}
             rotation={[0, 0, 0]}
-            isSelected={selectedModel && selectedModel.id === count}
+            isSelected={selectedCargo?.id === count}
           />
         )
 
