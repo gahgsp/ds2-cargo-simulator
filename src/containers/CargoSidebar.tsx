@@ -14,7 +14,7 @@ const styles = {
   container: {
     display: 'flex',
     flexDirection: 'column',
-    height: '100%',
+    height: '70%',
     overflow: 'hidden',
   },
   scrollableContainer: {

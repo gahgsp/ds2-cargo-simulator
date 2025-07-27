@@ -1,8 +1,8 @@
 import { Box, Grid } from '@mui/material'
 import { useState } from 'react'
+import CargoDetails from './components/CargoDetails/CargoDetails'
 import Shelf from './components/Shelf/Shelf'
 import CargoSidebar from './containers/CargoSidebar'
-import CargoDetails from './components/CargoDetails/CargoDetails'
 import type { Cargo, Delivery } from './interfaces'
 
 const styles = {
@@ -67,7 +67,7 @@ function App() {
   return (
     <Grid container sx={styles.container}>
       {/* Left Column - Cargos */}
-      <Grid size={5} sx={{ height: '100%' }}>
+      <Grid size={5} sx={{ height: '100%', position: 'relative' }}>
         <CargoSidebar deliveries={deliveries} onSelectCargo={(cargo) => setSelectedCargo(cargo)} />
         <Box>
           {selectedCargo && <CargoDetails cargo={selectedCargo} />}
