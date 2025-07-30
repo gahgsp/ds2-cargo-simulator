@@ -62,17 +62,31 @@ const Shelf = ({ cargos, selectedCargo }: ShelfProps) => {
 
           const positionX = (x - 1) * SPACING
           const positionY = y * (SPACING / 2) + shelfBounds.yOffset
-          const positionZ = (z - 1) * SPACING
+          const positionZ = (z - 1) * SPACING - 72
 
-          modelArray.push(
-            <Model
-              key={`${cargos[count].id}-${x}-${y}-${z}`}
-              position={[positionX, positionY, positionZ]}
-              scale={SCALE}
-              rotation={ROTATION}
-              isSelected={selectedCargo?.id === cargos[count].id}
-            />
-          )
+          if (selectedCargo?.id === cargos[count].id) {
+            modelArray.push(
+              <Model
+                key={`transparent-${cargos[count].id}-${x}-${y}-${z}`}
+                position={[positionX, positionY, positionZ]}
+                scale={SCALE}
+                rotation={ROTATION}
+                isSelected={true}
+                isTransparent={true}
+              />
+            )
+          } else {
+            modelArray.push(
+              <Model
+                key={`${cargos[count].id}-${x}-${y}-${z}`}
+                position={[positionX, positionY, positionZ]}
+                scale={SCALE}
+                rotation={ROTATION}
+                isSelected={false}
+                isTransparent={false}
+              />
+            )
+          }
 
           count++
         }
@@ -81,6 +95,21 @@ const Shelf = ({ cargos, selectedCargo }: ShelfProps) => {
 
     return modelArray
   }, [totalLayers, cargos, shelfBounds.yOffset, selectedCargo?.id])
+
+  const selectedModel = useMemo(() => {
+    if (!selectedCargo) return null
+
+    return (
+      <Model
+        key={`selected-${selectedCargo.id}`}
+        position={[0, 2, 0]} // Puts the Model in the very front of the Camera.
+        scale={SCALE}
+        rotation={ROTATION}
+        isSelected={true}
+        isTransparent={false}
+      />
+    )
+  }, [selectedCargo])
 
   return (
     <Canvas
@@ -94,6 +123,7 @@ const Shelf = ({ cargos, selectedCargo }: ShelfProps) => {
       <Environment preset="city" />
       <Suspense fallback={null}>
         {models}
+        {selectedModel}
       </Suspense>
     </Canvas>
   )

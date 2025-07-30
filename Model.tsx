@@ -6,70 +6,82 @@ Source: https://sketchfab.com/3d-models/death-stranding-cargo-79db2b621cf742b38a
 Title: Death Stranding Cargo
 */
 import { Clone, Edges, useGLTF, type EdgesRef } from '@react-three/drei'
-import { useFrame } from '@react-three/fiber'
+import { useFrame, type ThreeElements } from '@react-three/fiber'
 import { useMemo, useRef } from 'react'
-import type { Mesh } from 'three'
-import * as THREE from 'three'
+import type { Group } from 'three'
+import { makeTransparent } from './src/utils/model'
 
-export function FadingEdges() {
+type GroupProps = ThreeElements['group']
+
+type ModelProps = GroupProps & {
+  isSelected: boolean
+  isTransparent: boolean
+}
+
+
+const FadingEdges = ({ isTransparent }: { isTransparent: boolean }) => {
   const edgesRef = useRef<EdgesRef>(null)
-  const elapsedRef = useRef(0)
+  const elapsedRef = useRef<number>(0)
 
   useFrame((_, delta) => {
     if (!edgesRef.current) return
     elapsedRef.current += delta
+
     const rawOpacity = (Math.sin(elapsedRef.current * 2 * Math.PI * 0.5) + 1) / 2
     const intensity = 0.4 + 0.7 * rawOpacity
 
-    const mat = edgesRef.current.material as unknown as THREE.LineBasicMaterial
-    mat.color.setRGB(0, 0, intensity)
+    const mat = edgesRef.current.material
+    mat.color.setRGB(intensity, intensity, intensity)
+
     mat.opacity = 1
     mat.transparent = true
+    if (!isTransparent) {
+      mat.linewidth = 3
+    }
     mat.needsUpdate = true
   })
 
   return (
-    <Edges color="blue" threshold={45} ref={edgesRef} />
+    <Edges
+      ref={edgesRef}
+      // Magic numbers that at best looked acceptable for the blinking effect.
+      threshold={isTransparent ? 145 : 45}
+    />
   )
 }
 
-export default function Model({ isSelected = false, ...props }: any) {
+const Model = ({
+  isSelected,
+  isTransparent,
+  ...props
+}: ModelProps) => {
   const { scene } = useGLTF('/scene.gltf')
-  const groupRef = useRef<THREE.Group>(null)
-  const clonedScene = useMemo(() => scene.clone(true), [scene])
+  const groupRef = useRef<Group>(null)
+
+  const originalModel = useMemo(() => scene.clone(true), [scene])
+
+  const transparentModel = useMemo(() => {
+    const clone = scene.clone(true)
+    makeTransparent(clone, 0.1)
+    return clone
+  }, [scene])
 
   return (
     <group ref={groupRef} {...props}>
       {/* If the Cargo is not selected, we display the original textures. */}
-      {!isSelected && <Clone object={clonedScene} />}
-      {/* If the Cargo is selected, we display the "transparent" texture and the highlight outline. */}
-      {isSelected && (
-        <>
-          <Clone object={clonedScene} inject={(obj) => {
-            if ((obj as Mesh).isMesh) {
-              const mesh = obj as Mesh
-              return (
-                <mesh
-                  geometry={mesh.geometry}
-                  position={mesh.position}
-                  rotation={mesh.rotation}
-                  scale={mesh.scale}
-                >
-                  <meshStandardMaterial color="#3d4648" transparent />
-                </mesh>
-              )
-            }
-            return null
-          }}
-          />
-          <Clone
-            object={clonedScene}
-            inject={<FadingEdges />}
-          />
-        </>
+      {!isSelected && !isTransparent && <Clone object={originalModel} />}
+      {/* If the Cargo is selected and it is the Model in the original position, we apply the transparency.  */}
+      {isSelected && isTransparent && (
+        <Clone object={transparentModel} inject={<FadingEdges isTransparent={isTransparent} />} />
+      )}
+      {/* If the Cargo is selected but it is not defined as transparent, it is the one in highlight. So we display the original with the highlight effect.  */}
+      {isSelected && !isTransparent && (
+        <Clone object={originalModel} inject={<FadingEdges isTransparent={isTransparent} />} />
       )}
     </group>
   )
 }
 
 useGLTF.preload('/scene.gltf')
+
+export default Model
