@@ -24,9 +24,11 @@ const styles = {
     minHeight: '32px !important',
     height: '32px !important',
     margin: '0 !important',
+    outline: 'none !important',
+    cursor: 'inherit',
     '.MuiAccordionSummary-content': {
       alignItems: 'center'
-    }
+    },
   },
   deliveryInformation: {
     color: 'white',
@@ -40,7 +42,7 @@ const styles = {
 
 const CargoGroup = ({ title, totalWeight, cargos, onSelectCargo, waveColor }: CargoGroupProps) => {
   return (
-    <Accordion defaultExpanded={true} key={title} elevation={0} sx={styles.accordion} >
+    <Accordion defaultExpanded={true} expanded={true} key={title} elevation={0} sx={styles.accordion} disableGutters={true}>
       <AccordionSummary sx={styles.summary}>
         <CargoIcon />
         <Typography component="div" sx={styles.deliveryInformation}>
