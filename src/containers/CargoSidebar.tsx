@@ -20,6 +20,19 @@ const styles = {
   scrollableContainer: {
     flex: 1,
     overflowY: 'auto',
+    '&::-webkit-scrollbar': {
+      width: '2px',
+    },
+    '&::-webkit-scrollbar-thumb': {
+      backgroundColor: '#969ea2',
+      borderRadius: '4px',
+    },
+    '&::-webkit-scrollbar-thumb:hover': {
+      backgroundColor: '#969ea2',
+    },
+    '&::-webkit-scrollbar-track': {
+      backgroundColor: 'transparent',
+    },
   }
 }
 
