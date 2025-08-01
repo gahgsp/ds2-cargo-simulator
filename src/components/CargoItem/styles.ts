@@ -33,10 +33,6 @@ export const makeCargoItemStyles = ({ waveColor }: { waveColor: 'blue' | 'green'
       alignItems: 'center',
       justifyContent: 'space-between',
     },
-    checkContainer: {
-      width: '40px',
-      height: '40px'
-    },
     checkbox: {
       paddingLeft: '4px',
     },

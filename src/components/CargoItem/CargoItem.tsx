@@ -26,9 +26,7 @@ const CargoItem = ({ cargo, onSelectCargo, waveColor }: CargoItemProps) => {
 
   return (
     <Box key={cargo.id} sx={styles.container} onClick={handleOnSelectCargo}>
-      <Box sx={styles.checkContainer}>
-        {shouldDisplayCheckbox && <Checkbox checked={true} checkedIcon={<KeyboardArrowDownOutlinedIcon sx={styles.checkedIcon} />} sx={styles.checkbox} />}
-      </Box>
+      <Checkbox checked={true} checkedIcon={<KeyboardArrowDownOutlinedIcon sx={styles.checkedIcon} />} sx={{ ...styles.checkbox, visibility: shouldDisplayCheckbox ? 'visible' : 'hidden' }} />
       <Box sx={styles.leftSide}>
         <CargoIcon />
         <Typography sx={styles.title}>{cargo.title}</Typography>
