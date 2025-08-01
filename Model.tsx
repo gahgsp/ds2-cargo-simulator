@@ -7,7 +7,7 @@ Title: Death Stranding Cargo
 */
 import { Clone, Edges, useGLTF, type EdgesRef } from '@react-three/drei'
 import { useFrame, type ThreeElements } from '@react-three/fiber'
-import { useMemo, useRef } from 'react'
+import { useMemo, useRef, type ReactNode } from 'react'
 import type { Group } from 'three'
 import { makeTransparent } from './src/utils/model'
 
@@ -50,6 +50,21 @@ const FadingEdges = ({ isTransparent }: { isTransparent: boolean }) => {
   )
 }
 
+const Floating = ({ children }: { children: ReactNode }) => {
+  const ref = useRef<Group>(null)
+  const elapsedRef = useRef<number>(0)
+
+  useFrame((_, delta) => {
+    if (!ref.current) return
+    elapsedRef.current += delta
+
+    const y = Math.sin(elapsedRef.current * 2 * Math.PI * 0.3) * 0.7 // Frequency: 0.3Hz, Amplitude: 0.7.
+    ref.current.position.y = y
+  })
+
+  return <group ref={ref}>{children}</group>
+}
+
 const Model = ({
   isSelected,
   isTransparent,
@@ -72,7 +87,9 @@ const Model = ({
       {!isSelected && !isTransparent && <Clone object={originalModel} />}
       {/* If the Cargo is selected and it is the Model in the original position, we apply the transparency.  */}
       {isSelected && isTransparent && (
-        <Clone object={transparentModel} inject={<FadingEdges isTransparent={isTransparent} />} />
+        <Floating>
+          <Clone object={transparentModel} inject={<FadingEdges isTransparent={isTransparent} />} />
+        </Floating>
       )}
       {/* If the Cargo is selected but it is not defined as transparent, it is the one in highlight. So we display the original with the highlight effect.  */}
       {isSelected && !isTransparent && (
