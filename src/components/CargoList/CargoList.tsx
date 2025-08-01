@@ -5,6 +5,7 @@ import CargoItem from "../CargoItem/CargoItem";
 interface CargoListProps {
   cargos: Cargo[]
   onSelectCargo: (selectedCargo: Cargo) => void
+  waveColor: 'blue' | 'green'
 }
 
 const styles = {
@@ -17,11 +18,11 @@ const styles = {
   },
 }
 
-const CargoList = ({ cargos, onSelectCargo }: CargoListProps) => {
+const CargoList = ({ cargos, onSelectCargo, waveColor }: CargoListProps) => {
   return (
     <Box sx={styles.container}>
       {cargos.map((cargo) => (
-        <CargoItem cargo={cargo} onSelectCargo={onSelectCargo} />
+        <CargoItem cargo={cargo} onSelectCargo={onSelectCargo} waveColor={waveColor} />
       ))}
     </Box>
   )

@@ -62,7 +62,7 @@ const CargoSidebar = ({ deliveries, lostCargos, onSelectCargo }: CargoSidebarPro
               </Typography>
             </AccordionSummary>
             <AccordionDetails>
-              <CargoList cargos={delivery.cargos} onSelectCargo={onSelectCargo} />
+              <CargoList cargos={delivery.cargos} onSelectCargo={onSelectCargo} waveColor="blue" />
             </AccordionDetails>
           </Accordion >
         ))}
@@ -75,7 +75,7 @@ const CargoSidebar = ({ deliveries, lostCargos, onSelectCargo }: CargoSidebarPro
             </Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <CargoList cargos={lostCargos} onSelectCargo={onSelectCargo} />
+            <CargoList cargos={lostCargos} onSelectCargo={onSelectCargo} waveColor="green" />
           </AccordionDetails>
         </Accordion >
       </Box>
