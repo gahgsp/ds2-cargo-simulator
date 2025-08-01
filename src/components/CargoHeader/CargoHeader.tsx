@@ -1,6 +1,10 @@
 import { Box, Typography } from "@mui/material"
 import CalendarViewWeekOutlinedIcon from '@mui/icons-material/CalendarViewWeekOutlined';
 
+interface CargoHeaderProps {
+  amountOfCargos: number
+}
+
 const styles = {
   container: {
     marginBottom: '1rem',
@@ -60,7 +64,7 @@ const styles = {
   }
 }
 
-const CargoHeader = () => {
+const CargoHeader = ({ amountOfCargos }: CargoHeaderProps) => {
   return (
     <Box sx={styles.container}>
       <Typography variant="h3" sx={styles.title}>Cargo Pick-Up</Typography>
@@ -73,7 +77,7 @@ const CargoHeader = () => {
             <Typography component="div">Cargo Shelf</Typography>
           </Box>
           <Box style={styles.amount}>
-            <Typography component="div">x34</Typography>
+            <Typography component="div">x{amountOfCargos}</Typography>
           </Box>
         </Box>
       </Box>
