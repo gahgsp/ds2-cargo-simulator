@@ -7,6 +7,7 @@ import { formatAmount } from "../utils/numberHelpers";
 
 interface CargoSidebarProps {
   deliveries: Delivery[]
+  lostCargos: Cargo[]
   onSelectCargo: (selectedCargo: Cargo) => void
 }
 
@@ -46,7 +47,7 @@ const styles = {
   }
 }
 
-const CargoSidebar = ({ deliveries, onSelectCargo }: CargoSidebarProps) => {
+const CargoSidebar = ({ deliveries, lostCargos, onSelectCargo }: CargoSidebarProps) => {
   return (
     <Box sx={styles.container}>
       <CargoHeader />
@@ -65,6 +66,18 @@ const CargoSidebar = ({ deliveries, onSelectCargo }: CargoSidebarProps) => {
             </AccordionDetails>
           </Accordion >
         ))}
+        <Accordion defaultExpanded={true} key={'lost-cargo'} elevation={0} sx={styles.accordion} >
+          <AccordionSummary sx={styles.summary}>
+            <CargoIcon />
+            <Typography component="div" sx={styles.deliveryInformation}>
+              <Typography>Lost Cargo</Typography>
+              <Typography>{formatAmount(lostCargos.reduce((acc, curr) => acc + curr.weight, 0))}</Typography>
+            </Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <CargoList cargos={lostCargos} onSelectCargo={onSelectCargo} />
+          </AccordionDetails>
+        </Accordion >
       </Box>
     </Box>
   )

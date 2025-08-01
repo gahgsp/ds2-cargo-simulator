@@ -1,8 +1,9 @@
 import { Box, Grid } from '@mui/material'
+import { Canvas } from '@react-three/fiber'
 import { useState } from 'react'
 import CargoDetails from './components/CargoDetails/CargoDetails'
-import Shelf from './components/Shelf/Shelf'
 import CargoSidebar from './containers/CargoSidebar'
+import Scene from './containers/Scene'
 import type { Cargo, Delivery } from './interfaces'
 
 const styles = {
@@ -64,18 +65,26 @@ function App() {
     }
   ]
 
+  const lostCargos: Cargo[] = [
+    { id: 69, title: 'Lost 1', description: 'Samples of fish recovered from a BT area. It is possible that these creatures crossed over from the other side at the same time as the BTs.', size: 'S', weight: 8 },
+    { id: 68, title: 'Lost 2', description: 'Samples of fish recovered from a BT area. It is possible that these creatures crossed over from the other side at the same time as the BTs.', size: 'S', weight: 8 },
+    { id: 67, title: 'Lost 3', description: 'Samples of fish recovered from a BT area. It is possible that these creatures crossed over from the other side at the same time as the BTs.', size: 'S', weight: 8 }
+  ]
+
   return (
     <Grid container sx={styles.container}>
       {/* Left Column - Cargos */}
       <Grid size={5} sx={{ height: '100%', position: 'relative' }}>
-        <CargoSidebar deliveries={deliveries} onSelectCargo={(cargo) => setSelectedCargo(cargo)} />
+        <CargoSidebar deliveries={deliveries} lostCargos={lostCargos} onSelectCargo={(cargo) => setSelectedCargo(cargo)} />
         <Box>
           {selectedCargo && <CargoDetails cargo={selectedCargo} />}
         </Box>
       </Grid>
       {/* Right Column - 3D Scene */}
       <Grid size={7}>
-        <Shelf cargos={deliveries.flatMap((delivery) => delivery.cargos)} selectedCargo={selectedCargo} />
+        <Canvas>
+          <Scene deliveries={deliveries} lostCargos={lostCargos} selectedCargo={selectedCargo} />
+        </Canvas>
       </Grid>
     </Grid>
   )
