@@ -62,7 +62,7 @@ function App() {
         { id: 32, title: 'Unidentified Fish Sample', description: 'Samples of fish recovered from a BT area. It is possible that these creatures crossed over from the other side at the same time as the BTs.', size: 'S', weight: 8 },
         { id: 33, title: 'Unidentified Fish Sample', description: 'Samples of fish recovered from a BT area. It is possible that these creatures crossed over from the other side at the same time as the BTs.', size: 'S', weight: 8 },
       ]
-    }
+    },
   ]
 
   const lostCargos: Cargo[] = [
