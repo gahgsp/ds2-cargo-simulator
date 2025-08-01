@@ -1,7 +1,6 @@
 import { Environment, PerspectiveCamera } from "@react-three/drei"
 import { useFrame } from "@react-three/fiber"
-import { Suspense, useEffect, useMemo, useState } from "react"
-import { Vector3 } from "three"
+import { Suspense, useEffect, useState } from "react"
 import Shelf from "../components/Shelf/Shelf"
 import { TO_DELIVERIES_SHELF_ROTATION, TO_LOST_CARGOS_SHELF_ROTATION } from "../constants/camera"
 import { useCameraPosition } from "../hooks/useCameraPosition"
@@ -29,10 +28,6 @@ const Scene = ({ deliveries, lostCargos, selectedCargo }: SceneProps) => {
   const deliveriesCameraPosition = useCameraPosition({ bounds: deliveriesShelfBounds })
   const lostCargosCameraPosition = useCameraPosition({ bounds: lostCargosShelfBounds })
 
-  // Defines the position that the Camera should be located when focusing on each Shelf.
-  const deliveryCameraPositionTarget = useMemo(() => new Vector3(0, 0, deliveriesCameraPosition.z), [deliveriesCameraPosition.z])
-  const lostCargosCameraPositionTarget = useMemo(() => new Vector3(0, 0, lostCargosCameraPosition.z), [lostCargosCameraPosition.z])
-
   useEffect(() => {
     if (!selectedCargo || !lostCargos.find((c) => c.id === selectedCargo.id)) {
       setActiveShelf('DELIVERIES')
@@ -44,10 +39,10 @@ const Scene = ({ deliveries, lostCargos, selectedCargo }: SceneProps) => {
 
   useFrame((state) => {
     if (activeShelf === 'DELIVERIES') {
-      state.camera.position.lerp(deliveryCameraPositionTarget, 0.05)
+      state.camera.position.lerp(deliveriesCameraPosition, 0.05)
       state.camera.quaternion.slerp(TO_DELIVERIES_SHELF_ROTATION, 0.1)
     } else if (activeShelf === 'LOST_CARGO') {
-      state.camera.position.lerp(lostCargosCameraPositionTarget, 0.05)
+      state.camera.position.lerp(lostCargosCameraPosition, 0.05)
       state.camera.quaternion.slerp(TO_LOST_CARGOS_SHELF_ROTATION, 0.1)
     }
   })
