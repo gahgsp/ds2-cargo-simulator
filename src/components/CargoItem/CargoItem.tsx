@@ -1,4 +1,6 @@
+import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined'
 import { Box, Checkbox, Typography } from "@mui/material"
+import { useState } from "react"
 import type { Cargo } from "../../interfaces"
 import { formatAmount } from "../../utils/numberHelpers"
 import CargoIcon from "../CargoIcon/CargoIcon"
@@ -12,13 +14,22 @@ interface CargoItemProps {
 
 const CargoItem = ({ cargo, onSelectCargo, waveColor }: CargoItemProps) => {
   const styles = makeCargoItemStyles({ waveColor })
+
+  // Outside visual effects, we do not this information for other stuff. So we keep it simple.
+  const [shouldDisplayCheckbox, setShouldDisplayCheckbox] = useState<boolean>(false)
+
+  const handleOnSelectCargo = (event: { preventDefault: () => void }) => {
+    event.preventDefault()
+    onSelectCargo(cargo)
+    setShouldDisplayCheckbox(!shouldDisplayCheckbox)
+  }
+
   return (
-    <Box key={cargo.id} sx={styles.container} onClick={(e) => {
-      e.preventDefault()
-      onSelectCargo(cargo)
-    }}>
+    <Box key={cargo.id} sx={styles.container} onClick={handleOnSelectCargo}>
+      <Box sx={styles.checkContainer}>
+        {shouldDisplayCheckbox && <Checkbox checked={true} checkedIcon={<KeyboardArrowDownOutlinedIcon sx={styles.checkedIcon} />} sx={styles.checkbox} />}
+      </Box>
       <Box sx={styles.leftSide}>
-        <Checkbox sx={styles.checkbox} />
         <CargoIcon />
         <Typography sx={styles.title}>{cargo.title}</Typography>
       </Box>
