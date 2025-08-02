@@ -22,7 +22,7 @@ const CargoList = ({ cargos, onSelectCargo, waveColor }: CargoListProps) => {
   return (
     <Box sx={styles.container}>
       {cargos.map((cargo) => (
-        <CargoItem cargo={cargo} onSelectCargo={onSelectCargo} waveColor={waveColor} />
+        <CargoItem key={cargo.id} cargo={cargo} onSelectCargo={onSelectCargo} waveColor={waveColor} />
       ))}
     </Box>
   )

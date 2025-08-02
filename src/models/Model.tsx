@@ -9,7 +9,7 @@ import { Clone, Edges, useGLTF, type EdgesRef } from '@react-three/drei'
 import { useFrame, type ThreeElements } from '@react-three/fiber'
 import { useMemo, useRef, type ReactNode } from 'react'
 import type { Group } from 'three'
-import { makeTransparent } from './src/utils/model'
+import { makeTransparent } from '../utils/model'
 
 type GroupProps = ThreeElements['group']
 
@@ -70,7 +70,7 @@ const Model = ({
   isTransparent,
   ...props
 }: ModelProps) => {
-  const { scene } = useGLTF('/scene.gltf')
+  const { scene } = useGLTF('/cargo/scene.gltf')
   const groupRef = useRef<Group>(null)
 
   const originalModel = useMemo(() => scene.clone(true), [scene])
@@ -99,6 +99,6 @@ const Model = ({
   )
 }
 
-useGLTF.preload('/scene.gltf')
+useGLTF.preload('/cargo/scene.gltf')
 
 export default Model

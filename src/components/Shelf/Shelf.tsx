@@ -1,10 +1,11 @@
 import type { ThreeElements } from "@react-three/fiber"
 import { useMemo } from "react"
-import Model from "../../../Model"
-import { ROTATION, SCALE } from "../../constants/model"
+import { LARGE_ROTATION, LARGE_SCALE, ROTATION, SCALE } from "../../constants/model"
 import { DEPTH, SPACING, WIDTH } from "../../constants/shelf"
 import { useShelfBounds } from "../../hooks/useShelfBounds"
 import type { Cargo } from "../../interfaces"
+import LargeModel from "../../models/LargeModel"
+import Model from "../../models/Model"
 
 type GroupProps = ThreeElements['group']
 
@@ -33,27 +34,53 @@ const Shelf = ({ cargos, selectedCargo, ...rest }: ShelfProps) => {
           const positionZ = (z - 1) * SPACING - 48
 
           if (selectedCargo?.id === cargos[count].id) {
-            modelArray.push(
-              <Model
-                key={`transparent-${cargos[count].id}-${x}-${y}-${z}`}
-                position={[positionX, positionY, positionZ]}
-                scale={SCALE}
-                rotation={ROTATION}
-                isSelected={true}
-                isTransparent={true}
-              />
-            )
+            if (cargos[count].size === 'S') {
+              modelArray.push(
+                <Model
+                  key={`transparent-${cargos[count].id}-${x}-${y}-${z}`}
+                  position={[positionX, positionY, positionZ]}
+                  scale={SCALE}
+                  rotation={ROTATION}
+                  isSelected={true}
+                  isTransparent={true}
+                />
+              )
+            } else {
+              modelArray.push(
+                <LargeModel
+                  key={`transparent-${cargos[count].id}-${x}-${y}-${z}`}
+                  position={[positionX, positionY, positionZ]}
+                  scale={LARGE_SCALE}
+                  rotation={LARGE_ROTATION}
+                  isSelected={true}
+                  isTransparent={true}
+                />
+              )
+            }
           } else {
-            modelArray.push(
-              <Model
-                key={`${cargos[count].id}-${x}-${y}-${z}`}
-                position={[positionX, positionY, positionZ]}
-                scale={SCALE}
-                rotation={ROTATION}
-                isSelected={false}
-                isTransparent={false}
-              />
-            )
+            if (cargos[count].size === 'S') {
+              modelArray.push(
+                <Model
+                  key={`${cargos[count].id}-${x}-${y}-${z}`}
+                  position={[positionX, positionY, positionZ]}
+                  scale={SCALE}
+                  rotation={ROTATION}
+                  isSelected={false}
+                  isTransparent={false}
+                />
+              )
+            } else {
+              modelArray.push(
+                <LargeModel
+                  key={`${cargos[count].id}-${x}-${y}-${z}`}
+                  position={[positionX, positionY, positionZ]}
+                  scale={LARGE_SCALE}
+                  rotation={LARGE_ROTATION}
+                  isSelected={false}
+                  isTransparent={false}
+                />
+              )
+            }
           }
 
           count++
@@ -67,12 +94,25 @@ const Shelf = ({ cargos, selectedCargo, ...rest }: ShelfProps) => {
   const selectedModel = useMemo(() => {
     if (!selectedCargo) return null
 
+    if (selectedCargo.size === 'S') {
+      return (
+        <Model
+          key={`selected-${selectedCargo.id}`}
+          position={[0, -6, -16]} // Puts the Model in the very front of the Camera.
+          scale={SCALE}
+          rotation={ROTATION}
+          isSelected={true}
+          isTransparent={false}
+        />
+      )
+    }
+
     return (
-      <Model
+      <LargeModel
         key={`selected-${selectedCargo.id}`}
         position={[0, -6, -16]} // Puts the Model in the very front of the Camera.
-        scale={SCALE}
-        rotation={ROTATION}
+        scale={LARGE_SCALE}
+        rotation={LARGE_ROTATION}
         isSelected={true}
         isTransparent={false}
       />

@@ -15,7 +15,7 @@ const styles = {
   },
   title: {
     paddingLeft: '16px',
-    marginTop: '4px'
+    marginTop: '4px',
   },
   informationContainer: {
     display: 'flex',

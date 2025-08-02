@@ -67,7 +67,7 @@ function App() {
   const lostCargos: Cargo[] = [
     { id: 69, title: 'Lost 1', description: 'Samples of fish recovered from a BT area. It is possible that these creatures crossed over from the other side at the same time as the BTs.', size: 'S', weight: 8 },
     { id: 68, title: 'Lost 2', description: 'Samples of fish recovered from a BT area. It is possible that these creatures crossed over from the other side at the same time as the BTs.', size: 'S', weight: 8 },
-    { id: 67, title: 'Lost 3', description: 'Samples of fish recovered from a BT area. It is possible that these creatures crossed over from the other side at the same time as the BTs.', size: 'S', weight: 8 }
+    { id: 67, title: 'Lost 3', description: 'Samples of fish recovered from a BT area. It is possible that these creatures crossed over from the other side at the same time as the BTs.', size: 'L', weight: 8 }
   ]
 
   return (

@@ -46,7 +46,7 @@ const CargoSidebar = ({ deliveries, lostCargos, onSelectCargo }: CargoSidebarPro
       <Box sx={styles.scrollableContainer}>
         {/* Main Deliveries */}
         {deliveries.map((delivery) => (
-          <CargoGroup title={`[${delivery.type}] ${delivery.description}`} totalWeight={delivery.totalWeight} cargos={delivery.cargos} onSelectCargo={onSelectCargo} waveColor="blue" />
+          <CargoGroup key={delivery.description} title={`[${delivery.type}] ${delivery.description}`} totalWeight={delivery.totalWeight} cargos={delivery.cargos} onSelectCargo={onSelectCargo} waveColor="blue" />
         ))}
         {/* Lost Cargo */}
         <CargoGroup title="Lost Cargo" totalWeight={lostCargos.reduce((acc, curr) => acc + curr.weight, 0)} cargos={lostCargos} onSelectCargo={onSelectCargo} waveColor="green" />
