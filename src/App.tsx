@@ -12,7 +12,6 @@ const styles = {
     height: '100vh',
     width: '100vw',
     display: 'flex',
-    background: '#3d4648',
     padding: '16px',
     overflow: 'hidden'
   },

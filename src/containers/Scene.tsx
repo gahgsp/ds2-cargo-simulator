@@ -51,7 +51,6 @@ const Scene = ({ deliveries, lostCargos, selectedCargo }: SceneProps) => {
     <>
       <PerspectiveCamera position={deliveriesCameraPosition} fov={15} makeDefault={true} />
       <ambientLight intensity={1} />
-      <directionalLight position={[5, 10, 5]} intensity={1.2} />
       <Environment preset="city" />
       <Suspense fallback={null}>
         <Shelf cargos={deliveries.flatMap((delivery) => delivery.cargos)} selectedCargo={selectedCargo} position={[0, 0, 0]} />
