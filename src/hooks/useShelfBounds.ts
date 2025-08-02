@@ -17,6 +17,7 @@ export const useShelfBounds = ({ cargos }: { cargos: Cargo[] }): ShelfBounds => 
       depth,
       center: CENTER,
       yOffset: -height / 2,
+      totalOfLayers: layers
     }
   }, [layers])
 }

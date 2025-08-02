@@ -17,4 +17,6 @@ export interface ShelfBounds {
   width: number;
   height: number;
   center: [number, number, number]
+  yOffset: number
+  totalOfLayers: number
 }
