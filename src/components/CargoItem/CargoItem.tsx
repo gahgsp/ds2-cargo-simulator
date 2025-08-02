@@ -32,12 +32,10 @@ const CargoItem = ({ cargo, onSelectCargo, waveColor }: CargoItemProps) => {
         <Typography sx={styles.title}>{cargo.title}</Typography>
       </Box>
       <Box sx={styles.rightSide}>
-        <Box sx={styles.size}>
-          <Typography variant="overline">{cargo.size}</Typography>
-        </Box>
+        <Typography component="div" variant="overline" sx={styles.size}>{cargo.size}</Typography>
         <Typography sx={styles.weight}>{formatAmount(cargo.weight)}</Typography>
       </Box>
-    </Box>
+    </Box >
   )
 }
 

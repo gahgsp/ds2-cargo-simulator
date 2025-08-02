@@ -79,15 +79,13 @@ export const makeCargoItemStyles = ({ waveColor }: { waveColor: 'blue' | 'green'
       alignItems: 'center'
     },
     size: {
-      marginRight: '48px',
-      backgroundColor: 'white',
-      color: 'black',
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-      width: '32px',
-      height: '32px',
+      marginRight: '56px',
+      backgroundColor: 'rgba(255, 255, 255, 0.8)',
+      lineHeight: '24px',
+      width: '16px',
+      height: '16px',
+      textAlign: 'center',
+      fontSize: '1rem'
     },
     weight: {
       color: 'white'
