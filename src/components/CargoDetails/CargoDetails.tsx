@@ -9,81 +9,141 @@ interface CargoDetailsProps {
   cargo: Cargo
 }
 
+const styles = {
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    position: 'absolute',
+    bottom: 10,
+    zIndex: 999,
+    backgroundColor: 'rgba(61, 113, 170, 0.2)',
+    color: 'white',
+    p: '8px'
+  },
+  header: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  title: {
+    marginLeft: '8px'
+  },
+  details: {
+    display: 'flex',
+    flexDirection: 'row',
+    px: '24px'
+  },
+  leftSide: {
+    display: 'flex',
+    flexDirection: 'column'
+  },
+  photoContainer: {
+    height: '104px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundImage: 'radial-gradient(rgba(0, 123, 255, 0.2) 10%, rgba(0, 123, 255, 0.1) 50%, transparent 80%)',
+    backgroundSize: '100% 100%', // stretches to cover full box
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'center'
+  },
+  photo: {
+    opacity: 0.6
+  },
+  damageContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  icon: {
+    backgroundColor: 'transparent',
+    color: 'white',
+    width: '32px',
+    height: '32px',
+    fontSize: '16px',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  progressContainer: {
+    display: 'flex',
+    flexGrow: '1',
+    flexDirection: 'column'
+  },
+  damageTitle: {
+    fontSize: '0.85rem'
+  },
+  rightSide: {
+    display: 'flex',
+    flexDirection: 'column',
+    paddingLeft: '16px',
+    flexGrow: 1
+  },
+  iconContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    height: '32px'
+  },
+  highlightTitle: {
+    fontSize: '0.85rem',
+    marginLeft: '8px'
+  },
+  divider: {
+    backgroundColor: '#6a7886',
+    height: '1px',
+    my: '4px'
+  },
+  description: {
+    fontSize: '0.85rem'
+  }
+}
+
 const CargoDetails = ({ cargo }: CargoDetailsProps) => {
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', position: 'absolute', bottom: 10, zIndex: 999, backgroundColor: 'rgba(61, 113, 170, 0.2)', color: 'white' }}>
-      <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+    <Box sx={styles.container}>
+      <Box sx={styles.header}>
         <CargoIcon />
-        <Typography sx={{ marginLeft: '8px' }}>{cargo.title}</Typography>
+        <Typography sx={styles.title}>{cargo.title}</Typography>
       </Box>
-      <Grid container sx={{ display: 'flex', flexDirection: 'row', px: '24px' }}>
-        <Grid sx={{ display: 'flex', flexDirection: 'column' }} size={4}>
-          <Box sx={{ height: '104px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'radial-gradient(circle,rgba(0, 123, 255, 0.4) 0%, rgba(0, 123, 255, 0.3) 20%, transparent 40%)' }}>
-            <img width="100" height="50" style={{ opacity: 0.6 }} srcSet={`src/assets/fish-cargo.png?w=248&fit=crop&auto=format&dpr=2 2x`} src={`src/assets/fish-cargo.png?w=248&fit=crop&auto=format`} />
+      <Grid container sx={styles.details}>
+        <Grid sx={styles.leftSide} size={4}>
+          <Box sx={styles.photoContainer}>
+            <img width="100" height="50" style={styles.photo} srcSet={`src/assets/fish-cargo.png?w=248&fit=crop&auto=format&dpr=2 2x`} src={`src/assets/fish-cargo.png?w=248&fit=crop&auto=format`} />
           </Box>
-          <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-            <Box sx={{
-              backgroundColor: 'transparent',
-              color: 'white',
-              width: '32px',
-              height: '32px',
-              fontSize: '16px',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              alignItems: 'center'
-            }}>
+          <Box sx={styles.damageContainer}>
+            <Box sx={styles.icon}>
               <FilterNoneOutlinedIcon />
             </Box>
-            <Box sx={{ display: 'flex', flexGrow: '1', flexDirection: 'column' }}>
-              <Typography sx={{ fontSize: '0.85rem' }}>Container Damage</Typography>
+            <Box sx={styles.progressContainer}>
+              <Typography sx={styles.damageTitle}>Container Damage</Typography>
               <LinearProgress variant="determinate" value={100} />
             </Box>
           </Box>
-          <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-            <Box sx={{
-              backgroundColor: 'transparent',
-              color: 'white',
-              width: '32px',
-              height: '32px',
-              fontSize: '16px',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              alignItems: 'center'
-            }}>
+          <Box sx={styles.damageContainer}>
+            <Box sx={styles.icon}>
               <ViewInArOutlinedIcon />
             </Box>
-            <Box sx={{ display: 'flex', flexGrow: '1', flexDirection: 'column' }}>
-              <Typography sx={{ fontSize: '0.85rem' }}>Contents Damage</Typography>
+            <Box sx={styles.progressContainer}>
+              <Typography sx={styles.damageTitle}>Contents Damage</Typography>
               <LinearProgress variant="determinate" value={100} />
             </Box>
           </Box>
         </Grid>
-        <Grid sx={{ display: 'flex', flexDirection: 'column', paddingLeft: '16px', flexGrow: 1 }} size={6}>
-          <Box sx={{ display: 'flex', alignItems: 'center', height: '32px' }}>
+        <Grid sx={styles.rightSide} size={8}>
+          <Box sx={styles.iconContainer}>
             <CargoIcon />
-            <Typography sx={{ fontSize: '0.85rem', marginLeft: '8px' }}>Standard Order Delivery Cargo</Typography>
+            <Typography sx={styles.highlightTitle}>Standard Order Delivery Cargo</Typography>
           </Box>
-          <Divider sx={{ backgroundColor: '#6a7886', height: '1px', my: '4px' }} />
-          <Box sx={{ display: 'flex', alignItems: 'center', height: '32px' }}>
-            <Box sx={{
-              backgroundColor: 'transparent',
-              color: 'white',
-              width: '32px',
-              height: '32px',
-              fontSize: '16px',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              alignItems: 'center'
-            }}>
+          <Divider sx={styles.divider} />
+          <Box sx={styles.iconContainer}>
+            <Box sx={styles.icon}>
               <MarkunreadMailboxOutlinedIcon />
             </Box>
-            <Typography sx={{ fontSize: '0.85rem', marginLeft: '8px' }}>Villa Libre</Typography>
+            <Typography sx={styles.highlightTitle}>Villa Libre</Typography>
           </Box>
-          <Divider sx={{ backgroundColor: '#6a7886', height: '1px', my: '4px' }} />
-          <Typography sx={{ fontSize: '0.85rem' }}>{cargo.description}</Typography>
+          <Divider sx={styles.divider} />
+          <Typography sx={styles.description}>{cargo.description}</Typography>
         </Grid>
       </Grid>
     </Box>
