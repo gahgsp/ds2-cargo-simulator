@@ -14,88 +14,88 @@ import { makeTransparent } from '../utils/model'
 type GroupProps = ThreeElements['group']
 
 type ModelProps = GroupProps & {
-    isSelected: boolean
-    isTransparent: boolean
+  isSelected: boolean
+  isTransparent: boolean
 }
 
 const FadingEdges = ({ isTransparent }: { isTransparent: boolean }) => {
-    const edgesRef = useRef<EdgesRef>(null)
-    const elapsedRef = useRef<number>(0)
+  const edgesRef = useRef<EdgesRef>(null)
+  const elapsedRef = useRef<number>(0)
 
-    useFrame((_, delta) => {
-        if (!edgesRef.current) return
-        elapsedRef.current += delta
+  useFrame((_, delta) => {
+    if (!edgesRef.current) return
+    elapsedRef.current += delta
 
-        const rawOpacity = (Math.sin(elapsedRef.current * 2 * Math.PI * 0.5) + 1) / 2
-        const intensity = 0.4 + 0.7 * rawOpacity
+    const rawOpacity = (Math.sin(elapsedRef.current * 2 * Math.PI * 0.5) + 1) / 2
+    const intensity = 0.4 + 0.7 * rawOpacity
 
-        const mat = edgesRef.current.material
-        mat.color.setRGB(intensity, intensity, intensity)
+    const mat = edgesRef.current.material
+    mat.color.setRGB(intensity, intensity, intensity)
 
-        mat.opacity = 1
-        mat.transparent = true
-        if (!isTransparent) {
-            mat.linewidth = 3
-        }
-        mat.needsUpdate = true
-    })
+    mat.opacity = 1
+    mat.transparent = true
+    if (!isTransparent) {
+      mat.linewidth = 3
+    }
+    mat.needsUpdate = true
+  })
 
-    return (
-        <Edges
-            ref={edgesRef}
-            // Magic numbers that at best looked acceptable for the blinking effect.
-            threshold={isTransparent ? 145 : 45}
-        />
-    )
+  return (
+    <Edges
+      ref={edgesRef}
+      // Magic numbers that at best looked acceptable for the blinking effect.
+      threshold={isTransparent ? 145 : 45}
+    />
+  )
 }
 
 const Floating = ({ children }: { children: ReactNode }) => {
-    const ref = useRef<Group>(null)
-    const elapsedRef = useRef<number>(0)
+  const ref = useRef<Group>(null)
+  const elapsedRef = useRef<number>(0)
 
-    useFrame((_, delta) => {
-        if (!ref.current) return
-        elapsedRef.current += delta
+  useFrame((_, delta) => {
+    if (!ref.current) return
+    elapsedRef.current += delta
 
-        const y = Math.sin(elapsedRef.current * 2 * Math.PI * 0.3) * 0.7 // Frequency: 0.3Hz, Amplitude: 0.7.
-        ref.current.position.y = y
-    })
+    const y = Math.sin(elapsedRef.current * 2 * Math.PI * 0.3) * 0.7 // Frequency: 0.3Hz, Amplitude: 0.7.
+    ref.current.position.y = y
+  })
 
-    return <group ref={ref}>{children}</group>
+  return <group ref={ref}>{children}</group>
 }
 
 const LargeModel = ({
-    isSelected,
-    isTransparent,
-    ...props
+  isSelected,
+  isTransparent,
+  ...props
 }: ModelProps) => {
-    const { scene } = useGLTF('/largeCargo/scene.gltf')
-    const groupRef = useRef<Group>(null)
+  const { scene } = useGLTF('/largeCargo/scene.gltf')
+  const groupRef = useRef<Group>(null)
 
-    const originalModel = useMemo(() => scene.clone(true), [scene])
+  const originalModel = useMemo(() => scene.clone(true), [scene])
 
-    const transparentModel = useMemo(() => {
-        const clone = scene.clone(true)
-        makeTransparent(clone, 0.1)
-        return clone
-    }, [scene])
+  const transparentModel = useMemo(() => {
+    const clone = scene.clone(true)
+    makeTransparent(clone, 0.1)
+    return clone
+  }, [scene])
 
-    return (
-        <group ref={groupRef} {...props}>
-            {/* If the Cargo is not selected, we display the original textures. */}
-            {!isSelected && !isTransparent && <Clone object={originalModel} />}
-            {/* If the Cargo is selected and it is the Model in the original position, we apply the transparency.  */}
-            {isSelected && isTransparent && (
-                <Floating>
-                    <Clone object={transparentModel} inject={<FadingEdges isTransparent={isTransparent} />} />
-                </Floating>
-            )}
-            {/* If the Cargo is selected but it is not defined as transparent, it is the one in highlight. So we display the original with the highlight effect.  */}
-            {isSelected && !isTransparent && (
-                <Clone object={originalModel} inject={<FadingEdges isTransparent={isTransparent} />} />
-            )}
-        </group>
-    )
+  return (
+    <group ref={groupRef} {...props}>
+      {/* If the Cargo is not selected, we display the original textures. */}
+      {!isSelected && !isTransparent && <Clone object={originalModel} />}
+      {/* If the Cargo is selected and it is the Model in the original position, we apply the transparency.  */}
+      {isSelected && isTransparent && (
+        <Floating>
+          <Clone object={transparentModel} inject={<FadingEdges isTransparent={isTransparent} />} />
+        </Floating>
+      )}
+      {/* If the Cargo is selected but it is not defined as transparent, it is the one in highlight. So we display the original with the highlight effect.  */}
+      {isSelected && !isTransparent && (
+        <Clone object={originalModel} inject={<FadingEdges isTransparent={isTransparent} />} />
+      )}
+    </group>
+  )
 }
 
 useGLTF.preload('/largeCargo/scene.gltf')
