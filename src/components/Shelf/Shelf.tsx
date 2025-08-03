@@ -1,11 +1,10 @@
 import type { ThreeElements } from "@react-three/fiber"
 import { useMemo } from "react"
 import { LARGE_ROTATION, LARGE_SCALE, ROTATION, SCALE } from "../../constants/model"
-import { DEPTH, SPACING, WIDTH } from "../../constants/shelf"
+import { useCargoPositions, type PositionedCargo } from "../../hooks/useCargoPositions"
 import { useShelfBounds } from "../../hooks/useShelfBounds"
 import type { Cargo } from "../../interfaces"
-import LargeModel from "../../models/LargeModel"
-import Model from "../../models/Model"
+import { CargoModel } from "../CargoModel/CargoModel"
 
 type GroupProps = ThreeElements['group']
 
@@ -15,113 +14,32 @@ type ShelfProps = GroupProps & {
 }
 
 const Shelf = ({ cargos, selectedCargo, ...rest }: ShelfProps) => {
-  /**
-   * Defines the properties of shelf (models container).
-   */
   const shelfBounds = useShelfBounds({ cargos })
-
-  const models = useMemo(() => {
-    const modelArray = []
-    let count = 0
-
-    for (let y = 0; y < shelfBounds.totalOfLayers; y++) {        // Height (layers)
-      for (let x = 0; x < WIDTH; x++) {                          // Width
-        for (let z = 0; z < DEPTH; z++) {                        // Depth
-          if (count >= cargos.length) break
-
-          const positionX = (x - 1) * SPACING
-          const positionY = y * (SPACING / 2) + shelfBounds.yOffset
-          const positionZ = (z - 1) * SPACING - 48
-
-          if (selectedCargo?.id === cargos[count].id) {
-            if (cargos[count].size === 'S') {
-              modelArray.push(
-                <Model
-                  key={`transparent-${cargos[count].id}-${x}-${y}-${z}`}
-                  position={[positionX, positionY, positionZ]}
-                  scale={SCALE}
-                  rotation={ROTATION}
-                  isSelected={true}
-                  isTransparent={true}
-                />
-              )
-            } else {
-              modelArray.push(
-                <LargeModel
-                  key={`transparent-${cargos[count].id}-${x}-${y}-${z}`}
-                  position={[positionX, positionY, positionZ]}
-                  scale={LARGE_SCALE}
-                  rotation={LARGE_ROTATION}
-                  isSelected={true}
-                  isTransparent={true}
-                />
-              )
-            }
-          } else {
-            if (cargos[count].size === 'S') {
-              modelArray.push(
-                <Model
-                  key={`${cargos[count].id}-${x}-${y}-${z}`}
-                  position={[positionX, positionY, positionZ]}
-                  scale={SCALE}
-                  rotation={ROTATION}
-                  isSelected={false}
-                  isTransparent={false}
-                />
-              )
-            } else {
-              modelArray.push(
-                <LargeModel
-                  key={`${cargos[count].id}-${x}-${y}-${z}`}
-                  position={[positionX, positionY, positionZ]}
-                  scale={LARGE_SCALE}
-                  rotation={LARGE_ROTATION}
-                  isSelected={false}
-                  isTransparent={false}
-                />
-              )
-            }
-          }
-
-          count++
-        }
-      }
-    }
-
-    return modelArray
-  }, [shelfBounds.totalOfLayers, shelfBounds.yOffset, cargos, selectedCargo?.id])
+  const positionedCargos = useCargoPositions(cargos, selectedCargo, shelfBounds)
 
   const selectedModel = useMemo(() => {
     if (!selectedCargo) return null
 
-    if (selectedCargo.size === 'S') {
-      return (
-        <Model
-          key={`selected-${selectedCargo.id}`}
-          position={[0, -6, -16]} // Puts the Model in the very front of the Camera.
-          scale={SCALE}
-          rotation={ROTATION}
-          isSelected={true}
-          isTransparent={false}
-        />
-      )
+    const isLarge = selectedCargo.size === 'L'
+
+    const props: PositionedCargo = {
+      ...selectedCargo,
+      key: `selected-${selectedCargo.id}`,
+      position: [0, -6, -16],
+      scale: isLarge ? LARGE_SCALE : SCALE,
+      rotation: isLarge ? LARGE_ROTATION : ROTATION,
+      isSelected: true,
+      isTransparent: false,
     }
 
-    return (
-      <LargeModel
-        key={`selected-${selectedCargo.id}`}
-        position={[0, -6, -16]} // Puts the Model in the very front of the Camera.
-        scale={LARGE_SCALE}
-        rotation={LARGE_ROTATION}
-        isSelected={true}
-        isTransparent={false}
-      />
-    )
+    return <CargoModel key={selectedCargo.id} cargo={props} />
   }, [selectedCargo])
 
   return (
     <group {...rest}>
-      {models}
+      {positionedCargos.map(cargo => (
+        <CargoModel key={cargo.key} cargo={cargo} />
+      ))}
       {selectedModel}
     </group>
   )

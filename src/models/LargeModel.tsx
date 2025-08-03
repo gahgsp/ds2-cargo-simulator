@@ -18,7 +18,6 @@ type ModelProps = GroupProps & {
     isTransparent: boolean
 }
 
-
 const FadingEdges = ({ isTransparent }: { isTransparent: boolean }) => {
     const edgesRef = useRef<EdgesRef>(null)
     const elapsedRef = useRef<number>(0)
