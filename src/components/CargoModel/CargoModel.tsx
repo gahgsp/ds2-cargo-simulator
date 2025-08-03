@@ -2,11 +2,11 @@ import type { PositionedCargo } from "../../hooks/useCargoPositions"
 import LargeModel from "../../models/LargeModel"
 import Model from "../../models/Model"
 
-type Props = {
+interface CargoModelProps {
   cargo: PositionedCargo
 }
 
-export const CargoModel = ({ cargo }: Props) => {
+export const CargoModel = ({ cargo }: CargoModelProps) => {
   const sharedProps = {
     key: cargo.key,
     position: cargo.position,
