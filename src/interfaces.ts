@@ -4,6 +4,8 @@ export interface Cargo {
   description: string
   size: 'S' | 'M' | 'L' | 'XL'
   weight: number
+  image?: string
+  deliveryTo?: string
 }
 
 export interface Delivery {

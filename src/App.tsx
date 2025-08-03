@@ -17,57 +17,31 @@ const styles = {
   },
 }
 
-function App() {
+const App = () => {
   const [selectedCargo, setSelectedCargo] = useState<Cargo | null>(null)
 
   const deliveries: Delivery[] = [
     {
       type: 'Express',
       description: 'Deliver Unidentified Samples of Stranded Fish',
-      totalWeight: 272,
-      cargos: [
-        { id: 0, title: 'Unidentified Fish Sample', description: 'Samples of fish recovered from a BT area. It is possible that these creatures crossed over from the other side at the same time as the BTs.', size: 'S', weight: 8 },
-        { id: 1, title: 'Unidentified Fish Sample', description: 'Samples of fish recovered from a BT area. It is possible that these creatures crossed over from the other side at the same time as the BTs.', size: 'S', weight: 8 },
-        { id: 2, title: 'Unidentified Fish Sample', description: 'Samples of fish recovered from a BT area. It is possible that these creatures crossed over from the other side at the same time as the BTs.', size: 'S', weight: 8 },
-        { id: 3, title: 'Unidentified Fish Sample', description: 'Samples of fish recovered from a BT area. It is possible that these creatures crossed over from the other side at the same time as the BTs.', size: 'S', weight: 8 },
-        { id: 4, title: 'Unidentified Fish Sample', description: 'Samples of fish recovered from a BT area. It is possible that these creatures crossed over from the other side at the same time as the BTs.', size: 'S', weight: 8 },
-        { id: 5, title: 'Unidentified Fish Sample', description: 'Samples of fish recovered from a BT area. It is possible that these creatures crossed over from the other side at the same time as the BTs.', size: 'S', weight: 8 },
-        { id: 6, title: 'Unidentified Fish Sample', description: 'Samples of fish recovered from a BT area. It is possible that these creatures crossed over from the other side at the same time as the BTs.', size: 'S', weight: 8 },
-        { id: 7, title: 'Unidentified Fish Sample', description: 'Samples of fish recovered from a BT area. It is possible that these creatures crossed over from the other side at the same time as the BTs.', size: 'S', weight: 8 },
-        { id: 8, title: 'Unidentified Fish Sample', description: 'Samples of fish recovered from a BT area. It is possible that these creatures crossed over from the other side at the same time as the BTs.', size: 'S', weight: 8 },
-        { id: 9, title: 'Unidentified Fish Sample', description: 'Samples of fish recovered from a BT area. It is possible that these creatures crossed over from the other side at the same time as the BTs.', size: 'S', weight: 8 },
-        { id: 10, title: 'Unidentified Fish Sample', description: 'Samples of fish recovered from a BT area. It is possible that these creatures crossed over from the other side at the same time as the BTs.', size: 'S', weight: 8 },
-        { id: 11, title: 'Unidentified Fish Sample', description: 'Samples of fish recovered from a BT area. It is possible that these creatures crossed over from the other side at the same time as the BTs.', size: 'S', weight: 8 },
-        { id: 12, title: 'Unidentified Fish Sample', description: 'Samples of fish recovered from a BT area. It is possible that these creatures crossed over from the other side at the same time as the BTs.', size: 'S', weight: 8 },
-        { id: 13, title: 'Unidentified Fish Sample', description: 'Samples of fish recovered from a BT area. It is possible that these creatures crossed over from the other side at the same time as the BTs.', size: 'S', weight: 8 },
-        { id: 14, title: 'Unidentified Fish Sample', description: 'Samples of fish recovered from a BT area. It is possible that these creatures crossed over from the other side at the same time as the BTs.', size: 'S', weight: 8 },
-        { id: 15, title: 'Unidentified Fish Sample', description: 'Samples of fish recovered from a BT area. It is possible that these creatures crossed over from the other side at the same time as the BTs.', size: 'S', weight: 8 },
-        { id: 16, title: 'Unidentified Fish Sample', description: 'Samples of fish recovered from a BT area. It is possible that these creatures crossed over from the other side at the same time as the BTs.', size: 'S', weight: 8 },
-        { id: 17, title: 'Unidentified Fish Sample', description: 'Samples of fish recovered from a BT area. It is possible that these creatures crossed over from the other side at the same time as the BTs.', size: 'S', weight: 8 },
-        { id: 18, title: 'Unidentified Fish Sample', description: 'Samples of fish recovered from a BT area. It is possible that these creatures crossed over from the other side at the same time as the BTs.', size: 'S', weight: 8 },
-        { id: 19, title: 'Unidentified Fish Sample', description: 'Samples of fish recovered from a BT area. It is possible that these creatures crossed over from the other side at the same time as the BTs.', size: 'S', weight: 8 },
-        { id: 20, title: 'Unidentified Fish Sample', description: 'Samples of fish recovered from a BT area. It is possible that these creatures crossed over from the other side at the same time as the BTs.', size: 'S', weight: 8 },
-        { id: 21, title: 'Unidentified Fish Sample', description: 'Samples of fish recovered from a BT area. It is possible that these creatures crossed over from the other side at the same time as the BTs.', size: 'S', weight: 8 },
-        { id: 22, title: 'Unidentified Fish Sample', description: 'Samples of fish recovered from a BT area. It is possible that these creatures crossed over from the other side at the same time as the BTs.', size: 'S', weight: 8 },
-        { id: 23, title: 'Unidentified Fish Sample', description: 'Samples of fish recovered from a BT area. It is possible that these creatures crossed over from the other side at the same time as the BTs.', size: 'S', weight: 8 },
-        { id: 24, title: 'Unidentified Fish Sample', description: 'Samples of fish recovered from a BT area. It is possible that these creatures crossed over from the other side at the same time as the BTs.', size: 'S', weight: 8 },
-        { id: 25, title: 'Unidentified Fish Sample', description: 'Samples of fish recovered from a BT area. It is possible that these creatures crossed over from the other side at the same time as the BTs.', size: 'S', weight: 8 },
-        { id: 26, title: 'Unidentified Fish Sample', description: 'Samples of fish recovered from a BT area. It is possible that these creatures crossed over from the other side at the same time as the BTs.', size: 'S', weight: 8 },
-        { id: 27, title: 'Unidentified Fish Sample', description: 'Samples of fish recovered from a BT area. It is possible that these creatures crossed over from the other side at the same time as the BTs.', size: 'S', weight: 8 },
-        { id: 28, title: 'Unidentified Fish Sample', description: 'Samples of fish recovered from a BT area. It is possible that these creatures crossed over from the other side at the same time as the BTs.', size: 'S', weight: 8 },
-        { id: 29, title: 'Unidentified Fish Sample', description: 'Samples of fish recovered from a BT area. It is possible that these creatures crossed over from the other side at the same time as the BTs.', size: 'S', weight: 8 },
-        { id: 30, title: 'Unidentified Fish Sample', description: 'Samples of fish recovered from a BT area. It is possible that these creatures crossed over from the other side at the same time as the BTs.', size: 'S', weight: 8 },
-        { id: 31, title: 'Unidentified Fish Sample', description: 'Samples of fish recovered from a BT area. It is possible that these creatures crossed over from the other side at the same time as the BTs.', size: 'S', weight: 8 },
-        { id: 32, title: 'Unidentified Fish Sample', description: 'Samples of fish recovered from a BT area. It is possible that these creatures crossed over from the other side at the same time as the BTs.', size: 'S', weight: 8 },
-        { id: 33, title: 'Unidentified Fish Sample', description: 'Samples of fish recovered from a BT area. It is possible that these creatures crossed over from the other side at the same time as the BTs.', size: 'S', weight: 8 },
-      ]
+      totalWeight: 136,
+      cargos: Array.from({ length: 34 }, (_, id) => ({
+        id,
+        title: 'Unidentified Fish Sample',
+        description:
+          'Samples of fish recovered from a BT area. It is possible that these creatures crossed over from the other side at the same time as the BTs.',
+        size: 'M',
+        weight: 4,
+        image: 'src/assets/img/fish-cargo.png',
+        deliveryTo: 'Villa Libre'
+      })),
     },
-  ]
+  ];
 
   const lostCargos: Cargo[] = [
-    { id: 69, title: 'Lost 1', description: 'Samples of fish recovered from a BT area. It is possible that these creatures crossed over from the other side at the same time as the BTs.', size: 'S', weight: 8 },
-    { id: 68, title: 'Lost 2', description: 'Samples of fish recovered from a BT area. It is possible that these creatures crossed over from the other side at the same time as the BTs.', size: 'S', weight: 8 },
-    { id: 67, title: 'Lost 3', description: 'Samples of fish recovered from a BT area. It is possible that these creatures crossed over from the other side at the same time as the BTs.', size: 'L', weight: 8 }
+    { id: 69, title: 'Vinyl Record with Sounds of Nature', description: 'A red and circular vinyl record. Used to store sounds and songs in a reproducible way. This object was very famous before the Death Stranding.', size: 'S', weight: 2, image: 'src/assets/img/red-disc.png', deliveryTo: 'Musician' },
+    { id: 68, title: 'Pre-Death Stranding Collection of Songs', description: 'A yellow and circular vinyl record. Used to store sounds and songs in a reproducible way. This object was very famous before the Death Stranding.', size: 'S', weight: 2, image: 'src/assets/img/yellow-disc.png', deliveryTo: 'Musician' },
+    { id: 67, title: 'Sack of Dirty Potatoes', description: 'Grown potatoes from a farm located in the south. It can be turned into different meals rich of carboidrates.', size: 'L', weight: 5, image: 'src/assets/img/potatoes.png', deliveryTo: 'Architect' }
   ]
 
   return (

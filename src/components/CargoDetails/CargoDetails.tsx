@@ -83,11 +83,12 @@ const styles = {
   iconContainer: {
     display: 'flex',
     alignItems: 'center',
-    height: '32px'
+    height: '32px',
   },
   highlightTitle: {
     fontSize: '0.85rem',
-    marginLeft: '8px'
+    marginLeft: '8px',
+    paddingTop: '8px'
   },
   divider: {
     backgroundColor: '#6a7886',
@@ -109,7 +110,7 @@ const CargoDetails = ({ cargo }: CargoDetailsProps) => {
       <Grid container sx={styles.details}>
         <Grid sx={styles.leftSide} size={4}>
           <Box sx={styles.photoContainer}>
-            <img width="100" height="50" style={styles.photo} srcSet={`src/assets/fish-cargo.png?w=248&fit=crop&auto=format&dpr=2 2x`} src={`src/assets/fish-cargo.png?w=248&fit=crop&auto=format`} />
+            <img width="100" height="50" style={styles.photo} srcSet={`${cargo.image}?w=248&fit=crop&auto=format&dpr=2 2x`} src={`src/assets/fish-cargo.png?w=248&fit=crop&auto=format`} />
           </Box>
           <Box sx={styles.damageContainer}>
             <Box sx={styles.icon}>
@@ -140,7 +141,7 @@ const CargoDetails = ({ cargo }: CargoDetailsProps) => {
             <Box sx={styles.icon}>
               <MarkunreadMailboxOutlinedIcon />
             </Box>
-            <Typography sx={styles.highlightTitle}>Villa Libre</Typography>
+            <Typography sx={styles.highlightTitle}>{cargo.deliveryTo}</Typography>
           </Box>
           <Divider sx={styles.divider} />
           <Typography sx={styles.description}>{cargo.description}</Typography>
