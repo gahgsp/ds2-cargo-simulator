@@ -1,9 +1,10 @@
+import DetailsOutlinedIcon from '@mui/icons-material/DetailsOutlined'
 import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined'
 import { Box, Checkbox, Typography } from "@mui/material"
 import { useState } from "react"
 import type { Cargo } from "../../interfaces"
 import { formatAmount } from "../../utils/numberHelpers"
-import CargoIcon from "../CargoIcon/CargoIcon"
+import IconContainer from '../IconContainer/IconContainer'
 import { makeCargoItemStyles } from './styles'
 
 interface CargoItemProps {
@@ -28,7 +29,9 @@ const CargoItem = ({ cargo, onSelectCargo, waveColor }: CargoItemProps) => {
     <Box key={cargo.id} sx={styles.container} onClick={handleOnSelectCargo}>
       <Checkbox checked={true} checkedIcon={<KeyboardArrowDownOutlinedIcon sx={styles.checkedIcon} />} sx={{ ...styles.checkbox, visibility: shouldDisplayCheckbox ? 'visible' : 'hidden' }} />
       <Box sx={styles.leftSide}>
-        <CargoIcon />
+        <IconContainer>
+          <DetailsOutlinedIcon sx={styles.cargoIcon} />
+        </IconContainer>
         <Typography sx={styles.title}>{cargo.title}</Typography>
       </Box>
       <Box sx={styles.rightSide}>

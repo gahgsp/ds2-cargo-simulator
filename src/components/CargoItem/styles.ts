@@ -90,5 +90,8 @@ export const makeCargoItemStyles = ({ waveColor }: { waveColor: 'blue' | 'green'
     weight: {
       color: 'white'
     },
+    cargoIcon: {
+      transform: 'rotate(180deg)'
+    }
   };
 };

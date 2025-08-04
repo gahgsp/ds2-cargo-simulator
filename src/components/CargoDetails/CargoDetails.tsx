@@ -1,9 +1,10 @@
+import DetailsOutlinedIcon from '@mui/icons-material/DetailsOutlined';
 import FilterNoneOutlinedIcon from '@mui/icons-material/FilterNoneOutlined';
 import MarkunreadMailboxOutlinedIcon from '@mui/icons-material/MarkunreadMailboxOutlined';
 import ViewInArOutlinedIcon from '@mui/icons-material/ViewInArOutlined';
 import { Box, Divider, Grid, LinearProgress, Typography } from "@mui/material";
 import type { Cargo } from "../../interfaces";
-import CargoIcon from "../CargoIcon/CargoIcon";
+import IconContainer from '../IconContainer/IconContainer';
 
 interface CargoDetailsProps {
   cargo: Cargo
@@ -53,23 +54,14 @@ const styles = {
   damageContainer: {
     display: 'flex',
     flexDirection: 'row',
-    alignItems: 'center'
-  },
-  icon: {
-    backgroundColor: 'transparent',
-    color: 'white',
-    width: '32px',
-    height: '32px',
-    fontSize: '16px',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    mt: '8px'
   },
   progressContainer: {
     display: 'flex',
     flexGrow: '1',
-    flexDirection: 'column'
+    flexDirection: 'column',
+    ml: '4px'
   },
   damageTitle: {
     fontSize: '0.85rem'
@@ -80,7 +72,7 @@ const styles = {
     paddingLeft: '16px',
     flexGrow: 1
   },
-  iconContainer: {
+  descriptionWithIcon: {
     display: 'flex',
     alignItems: 'center',
     height: '32px',
@@ -97,6 +89,9 @@ const styles = {
   },
   description: {
     fontSize: '0.85rem'
+  },
+  cargoIcon: {
+    transform: 'rotate(180deg)'
   }
 }
 
@@ -104,7 +99,9 @@ const CargoDetails = ({ cargo }: CargoDetailsProps) => {
   return (
     <Box sx={styles.container}>
       <Box sx={styles.header}>
-        <CargoIcon />
+        <IconContainer>
+          <DetailsOutlinedIcon sx={styles.cargoIcon} />
+        </IconContainer>
         <Typography sx={styles.title}>{cargo.title}</Typography>
       </Box>
       <Grid container sx={styles.details}>
@@ -113,18 +110,18 @@ const CargoDetails = ({ cargo }: CargoDetailsProps) => {
             <img width="100" height="50" style={styles.photo} srcSet={`${cargo.image}?w=248&fit=crop&auto=format&dpr=2 2x`} src={`${cargo.image}?w=248&fit=crop&auto=format`} />
           </Box>
           <Box sx={styles.damageContainer}>
-            <Box sx={styles.icon}>
+            <IconContainer variant="light">
               <FilterNoneOutlinedIcon />
-            </Box>
+            </IconContainer>
             <Box sx={styles.progressContainer}>
               <Typography sx={styles.damageTitle}>Container Damage</Typography>
               <LinearProgress variant="determinate" value={100} />
             </Box>
           </Box>
           <Box sx={styles.damageContainer}>
-            <Box sx={styles.icon}>
+            <IconContainer variant="light">
               <ViewInArOutlinedIcon />
-            </Box>
+            </IconContainer>
             <Box sx={styles.progressContainer}>
               <Typography sx={styles.damageTitle}>Contents Damage</Typography>
               <LinearProgress variant="determinate" value={100} />
@@ -132,15 +129,17 @@ const CargoDetails = ({ cargo }: CargoDetailsProps) => {
           </Box>
         </Grid>
         <Grid sx={styles.rightSide} size={8}>
-          <Box sx={styles.iconContainer}>
-            <CargoIcon />
+          <Box sx={styles.descriptionWithIcon}>
+            <IconContainer variant="light">
+              <DetailsOutlinedIcon sx={styles.cargoIcon} />
+            </IconContainer>
             <Typography sx={styles.highlightTitle}>Standard Order Delivery Cargo</Typography>
           </Box>
           <Divider sx={styles.divider} />
-          <Box sx={styles.iconContainer}>
-            <Box sx={styles.icon}>
+          <Box sx={styles.descriptionWithIcon}>
+            <IconContainer variant="light">
               <MarkunreadMailboxOutlinedIcon />
-            </Box>
+            </IconContainer>
             <Typography sx={styles.highlightTitle}>{cargo.deliveryTo}</Typography>
           </Box>
           <Divider sx={styles.divider} />
