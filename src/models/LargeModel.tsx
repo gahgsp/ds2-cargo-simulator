@@ -5,10 +5,12 @@ License: CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
 Source: https://sketchfab.com/3d-models/death-stranding-cargo-79db2b621cf742b38ade266815c2365b
 Title: Death Stranding Cargo
 */
-import { Clone, Edges, useGLTF, type EdgesRef } from '@react-three/drei'
-import { useFrame, type ThreeElements } from '@react-three/fiber'
-import { useMemo, useRef, type ReactNode } from 'react'
+import { Clone, useGLTF } from '@react-three/drei'
+import { type ThreeElements } from '@react-three/fiber'
+import { useMemo, useRef } from 'react'
 import type { Group } from 'three'
+import FadingEdges from '../components/FadingEdges/FadingEdges'
+import FloatingEffector from '../components/FloatingEffector/FloatingEffector'
 import { makeTransparent } from '../utils/model'
 
 type GroupProps = ThreeElements['group']
@@ -16,52 +18,6 @@ type GroupProps = ThreeElements['group']
 type ModelProps = GroupProps & {
   isSelected: boolean
   isTransparent: boolean
-}
-
-const FadingEdges = ({ isTransparent }: { isTransparent: boolean }) => {
-  const edgesRef = useRef<EdgesRef>(null)
-  const elapsedRef = useRef<number>(0)
-
-  useFrame((_, delta) => {
-    if (!edgesRef.current) return
-    elapsedRef.current += delta
-
-    const rawOpacity = (Math.sin(elapsedRef.current * 2 * Math.PI * 0.5) + 1) / 2
-    const intensity = 0.4 + 0.7 * rawOpacity
-
-    const mat = edgesRef.current.material
-    mat.color.setRGB(intensity, intensity, intensity)
-
-    mat.opacity = 1
-    mat.transparent = true
-    if (!isTransparent) {
-      mat.linewidth = 3
-    }
-    mat.needsUpdate = true
-  })
-
-  return (
-    <Edges
-      ref={edgesRef}
-      // Magic numbers that at best looked acceptable for the blinking effect.
-      threshold={isTransparent ? 145 : 45}
-    />
-  )
-}
-
-const Floating = ({ children }: { children: ReactNode }) => {
-  const ref = useRef<Group>(null)
-  const elapsedRef = useRef<number>(0)
-
-  useFrame((_, delta) => {
-    if (!ref.current) return
-    elapsedRef.current += delta
-
-    const y = Math.sin(elapsedRef.current * 2 * Math.PI * 0.3) * 0.7 // Frequency: 0.3Hz, Amplitude: 0.7.
-    ref.current.position.y = y
-  })
-
-  return <group ref={ref}>{children}</group>
 }
 
 const LargeModel = ({
@@ -86,9 +42,9 @@ const LargeModel = ({
       {!isSelected && !isTransparent && <Clone object={originalModel} />}
       {/* If the Cargo is selected and it is the Model in the original position, we apply the transparency.  */}
       {isSelected && isTransparent && (
-        <Floating>
+        <FloatingEffector>
           <Clone object={transparentModel} inject={<FadingEdges isTransparent={isTransparent} />} />
-        </Floating>
+        </FloatingEffector>
       )}
       {/* If the Cargo is selected but it is not defined as transparent, it is the one in highlight. So we display the original with the highlight effect.  */}
       {isSelected && !isTransparent && (
