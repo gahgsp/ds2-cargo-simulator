@@ -110,7 +110,7 @@ const CargoDetails = ({ cargo }: CargoDetailsProps) => {
       <Grid container sx={styles.details}>
         <Grid sx={styles.leftSide} size={4}>
           <Box sx={styles.photoContainer}>
-            <img width="100" height="50" style={styles.photo} srcSet={`${cargo.image}?w=248&fit=crop&auto=format&dpr=2 2x`} src={`src/assets/fish-cargo.png?w=248&fit=crop&auto=format`} />
+            <img width="100" height="50" style={styles.photo} srcSet={`${cargo.image}?w=248&fit=crop&auto=format&dpr=2 2x`} src={`${cargo.image}?w=248&fit=crop&auto=format`} />
           </Box>
           <Box sx={styles.damageContainer}>
             <Box sx={styles.icon}>
