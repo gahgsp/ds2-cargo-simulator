@@ -1,4 +1,4 @@
-import { Environment, PerspectiveCamera } from "@react-three/drei"
+import { Environment, Loader, PerspectiveCamera } from "@react-three/drei"
 import { useFrame } from "@react-three/fiber"
 import { Suspense, useEffect, useState } from "react"
 import Shelf from "../components/Shelf/Shelf"
@@ -52,7 +52,7 @@ const Scene = ({ deliveries, lostCargos, selectedCargo }: SceneProps) => {
       <PerspectiveCamera position={deliveriesCameraPosition} fov={15} makeDefault={true} />
       <ambientLight intensity={1} />
       <Environment preset="city" />
-      <Suspense fallback={null}>
+      <Suspense fallback={<Loader />}>
         <Shelf cargos={deliveries.flatMap((delivery) => delivery.cargos)} selectedCargo={selectedCargo} position={[0, 0, 0]} />
         <Shelf cargos={lostCargos} selectedCargo={selectedCargo} position={[0, 0, 296]} rotation={[0, Math.PI, 0]} />
       </Suspense>
