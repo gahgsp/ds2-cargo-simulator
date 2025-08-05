@@ -2,6 +2,7 @@ import DetailsOutlinedIcon from '@mui/icons-material/DetailsOutlined'
 import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined'
 import { Box, Checkbox, Typography } from "@mui/material"
 import { useState } from "react"
+import { useAudioEffect } from '../../hooks/useAudioEffect'
 import type { Cargo } from "../../interfaces"
 import { formatAmount } from "../../utils/numberHelpers"
 import IconContainer from '../IconContainer/IconContainer'
@@ -19,10 +20,13 @@ const CargoItem = ({ cargo, onSelectCargo, waveColor }: CargoItemProps) => {
   // Outside visual effects, we do not this information for other stuff. So we keep it simple.
   const [shouldDisplayCheckbox, setShouldDisplayCheckbox] = useState<boolean>(false)
 
+  const playAudioEffect = useAudioEffect(['/sounds/effect1.mp3', '/sounds/effect2.mp3'])
+
   const handleOnSelectCargo = (event: { preventDefault: () => void }) => {
     event.preventDefault()
     onSelectCargo(cargo)
     setShouldDisplayCheckbox(!shouldDisplayCheckbox)
+    playAudioEffect()
   }
 
   return (
