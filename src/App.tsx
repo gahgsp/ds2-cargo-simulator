@@ -41,7 +41,7 @@ const App = () => {
   const lostCargos: Cargo[] = [
     { id: 69, title: 'Vinyl Record with Sounds of Nature', description: 'A red and circular vinyl record. Used to store sounds and songs in a reproducible way. This object was very famous before the Death Stranding.', size: 'S', weight: 2, image: 'src/assets/img/red-disc.png', deliveryTo: 'Musician' },
     { id: 68, title: 'Pre-Death Stranding Collection of Songs', description: 'A yellow and circular vinyl record. Used to store sounds and songs in a reproducible way. This object was very famous before the Death Stranding.', size: 'S', weight: 2, image: 'src/assets/img/yellow-disc.png', deliveryTo: 'Musician' },
-    { id: 67, title: 'Sack of Dirty Potatoes', description: 'Grown potatoes from a farm located in the south. It can be turned into different meals rich of carboidrates.', size: 'L', weight: 5, image: 'src/assets/img/potatoes.png', deliveryTo: 'Architect' }
+    { id: 67, title: 'Jar of Doce de Leite (Mumu)', description: 'Whether to eat it as a dessert or together with bread, this sweet sauce-like confection is a gift sent from the other side. It is said: a spoon of Doce de Leite a day, keeps the timefall away.', size: 'L', weight: 5, image: 'src/assets/img/mumu-cargo.png', deliveryTo: 'Architect' }
   ]
 
   return (
