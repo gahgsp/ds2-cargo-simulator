@@ -20,7 +20,7 @@ const CargoItem = ({ cargo, onSelectCargo, waveColor }: CargoItemProps) => {
   // Outside visual effects, we do not this information for other stuff. So we keep it simple.
   const [shouldDisplayCheckbox, setShouldDisplayCheckbox] = useState<boolean>(false)
 
-  const playAudioEffect = useAudioEffect(['/sounds/effect1.mp3', '/sounds/effect2.mp3'])
+  const playAudioEffect = useAudioEffect('/sounds/effect2.mp3')
 
   const handleOnSelectCargo = (event: { preventDefault: () => void }) => {
     event.preventDefault()

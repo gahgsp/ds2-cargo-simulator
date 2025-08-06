@@ -1,16 +1,20 @@
 import { useRef } from "react"
 
-export const useAudioEffect = (urls: string[]) => {
-  const audioRefs = useRef<Map<string, HTMLAudioElement>>(new Map())
+export const useAudioEffect = (url: string) => {
+  const audioRef = useRef<HTMLAudioElement | null>(null)
 
   const playAudio = () => {
-    const randomUrl = urls[Math.floor(Math.random() * urls.length)]
 
-    if (!audioRefs.current.has(randomUrl)) {
-      audioRefs.current.set(randomUrl, new Audio(randomUrl))
+    if (!audioRef.current) {
+      audioRef.current = new Audio(url)
     }
 
-    const audio = audioRefs.current.get(randomUrl)!
+    const audio = audioRef.current
+    // If an audio is already playing, we do not play anything else.
+    if (!audio.paused && !audio.ended && audio.currentTime > 0) {
+      return
+    }
+
     audio.currentTime = 0
     audio.play()
   }

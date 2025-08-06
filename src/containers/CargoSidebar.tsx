@@ -2,7 +2,8 @@ import { Box } from "@mui/material";
 import CargoGroup from "../components/CargoGroup/CargoGroup";
 import CargoHeader from "../components/CargoHeader/CargoHeader";
 import type { Cargo, Delivery } from "../interfaces";
-import { useMemo } from "react";
+import { useEffect, useMemo, useRef } from "react";
+import { useAudioEffect } from "../hooks/useAudioEffect";
 
 interface CargoSidebarProps {
   deliveries: Delivery[]
@@ -37,13 +38,32 @@ const styles = {
 }
 
 const CargoSidebar = ({ deliveries, lostCargos, onSelectCargo }: CargoSidebarProps) => {
+  const playAudioEffect = useAudioEffect('/sounds/effect1.mp3')
+
+  const scrollRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const element = scrollRef.current
+    if (!element) {
+      return
+    }
+
+    const handleOnScroll = () => {
+      playAudioEffect()
+    }
+
+    element.addEventListener('scroll', handleOnScroll)
+    return () => element.removeEventListener('scroll', handleOnScroll)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   const totalCargoCount = useMemo(() => deliveries.reduce((sum, delivery) => sum + delivery.cargos.length, 0) +
     lostCargos.length, [deliveries, lostCargos.length])
 
   return (
     <Box sx={styles.container}>
       <CargoHeader amountOfCargos={totalCargoCount} />
-      <Box sx={styles.scrollableContainer}>
+      <Box ref={scrollRef} sx={styles.scrollableContainer}>
         {/* Main Deliveries */}
         {deliveries.map((delivery) => (
           <CargoGroup key={delivery.description} title={`[${delivery.type}] ${delivery.description}`} totalWeight={delivery.totalWeight} cargos={delivery.cargos} onSelectCargo={onSelectCargo} waveColor="blue" />
