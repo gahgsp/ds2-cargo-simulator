@@ -1,6 +1,6 @@
 @font-face {
     font-family: 'SackersGothic';
-    src: url('./SackersGothicLightAt.otf') format('opentype');
+    src: url('/fonts/SackersGothicLightAT.otf') format('opentype');
     font-weight: normal;
     font-style: normal;
 }
