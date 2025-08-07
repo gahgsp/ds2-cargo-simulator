@@ -1,10 +1,11 @@
 import { Box, Grid } from '@mui/material'
 import { Canvas } from '@react-three/fiber'
-import { useState } from 'react'
+import { Suspense, useState } from 'react'
 import CargoDetails from './components/CargoDetails/CargoDetails'
 import CargoSidebar from './containers/CargoSidebar'
 import Scene from './containers/Scene'
 import type { Cargo, Delivery } from './interfaces'
+import { Loader } from '@react-three/drei'
 
 const styles = {
   container: {
@@ -56,8 +57,11 @@ const App = () => {
       {/* Right Column - 3D Scene */}
       <Grid size={7}>
         <Canvas>
-          <Scene deliveries={deliveries} lostCargos={lostCargos} selectedCargo={selectedCargo} />
+          <Suspense fallback={null}>
+            <Scene deliveries={deliveries} lostCargos={lostCargos} selectedCargo={selectedCargo} />
+          </Suspense>
         </Canvas>
+        <Loader />
       </Grid>
     </Grid>
   )
