@@ -1,69 +1,51 @@
-# React + TypeScript + Vite
+# Death Stranding: Cargo Simulator UI Demo
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is a simplified demo of the cargo simulator UI from the game Death
+Stranding. It is not a perfect 1:1 replica of the original content.
 
-Currently, two official plugins are available:
+I developed this demo as a study project to learn 3D programming using React and
+ThreeJS (React Three Fiber).
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Scripts
 
-## Expanding the ESLint configuration
+You can run the following commands during development:
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- `npm dev`: Starts the app in development mode using
+  [Vite](https://vitejs.dev/).
+- `npm build`: Runs [TypeScript](https://www.typescriptlang.org/) build first,
+  then builds the production app with Vite.
+- `npm preview`: Previews the production build locally.
+- `npm lint`: Lints the project using [ESLint](https://eslint.org/).
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Tech Stack
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+This project uses:
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- [React](https://react.dev/) — UI library
+- [React DOM](https://react.dev/reference/react-dom) — for rendering
+- [Three.js](https://threejs.org/) — 3D engine
+- [@react-three/fiber](https://docs.pmnd.rs/react-three-fiber/introduction) —
+  React renderer for ThreeJS
+- [@react-three/drei](https://docs.pmnd.rs/drei/introduction) — helpers for
+  React Three Fiber
+- [MUI](https://mui.com/) — UI components
+- [Emotion](https://emotion.sh/docs/introduction) — CSS-in-JS for styling
+- [Vite](https://vitejs.dev/) — build tool
+- [TypeScript](https://www.typescriptlang.org/) — static typing
+- [ESLint](https://eslint.org/) — linter
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Acknowledgements
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+This project is a fan-made recreation of the cargo simulator UI from the game
+_Death Stranding_ by Hideo Kojima and Kojima Productions.
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+All visual design inspiration belongs to Kojima Productions. This project is not
+affiliated with, endorsed by, or sponsored by Kojima Productions or any of its
+partners.
+
+## Credits
+
+- Cargo Model: https://sketchfab.com/ahmagh2e
+- Large Cargo Model: https://sketchfab.com/ahmagh2e
+- Sackers Gothic Font:
+  https://fontsgeek.com/fonts/sackers-gothic-light-at-regular
