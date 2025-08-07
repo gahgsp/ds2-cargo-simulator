@@ -1,7 +1,8 @@
-# Death Stranding: Cargo Simulator UI Demo
+# Death Stranding 2: Cargo Simulator UI Demo
 
 This project is a simplified demo of the cargo simulator UI from the game Death
-Stranding. It is not a perfect 1:1 replica of the original content.
+Stranding 2: On The Beach. It is not a perfect 1:1 replica of the original
+content.
 
 I developed this demo as a study project to learn 3D programming using React and
 ThreeJS (React Three Fiber).
@@ -37,7 +38,7 @@ This project uses:
 ## Acknowledgements
 
 This project is a fan-made recreation of the cargo simulator UI from the game
-_Death Stranding_ by Hideo Kojima and Kojima Productions.
+_Death Stranding 2: On The Beach_ by Hideo Kojima and Kojima Productions.
 
 All visual design inspiration belongs to Kojima Productions. This project is not
 affiliated with, endorsed by, or sponsored by Kojima Productions or any of its
