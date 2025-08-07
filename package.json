@@ -1,5 +1,6 @@
 {
   "name": "ds2-cargo-simulator",
+  "author": "gahgsp",
   "private": true,
   "version": "0.0.0",
   "type": "module",
