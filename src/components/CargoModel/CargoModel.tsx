@@ -8,7 +8,6 @@ interface CargoModelProps {
 
 export const CargoModel = ({ cargo }: CargoModelProps) => {
   const sharedProps = {
-    key: cargo.key,
     position: cargo.position,
     scale: cargo.scale,
     rotation: cargo.rotation,
@@ -17,8 +16,8 @@ export const CargoModel = ({ cargo }: CargoModelProps) => {
   }
 
   return cargo.size === 'L' ? (
-    <LargeModel {...sharedProps} />
+    <LargeModel key={`large-cargo-${cargo.id}`} {...sharedProps} />
   ) : (
-    <Model {...sharedProps} />
+    <Model key={`cargo-${cargo.id}`} {...sharedProps} />
   )
 }
