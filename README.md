@@ -7,6 +7,9 @@ content.
 I developed this demo as a study project to learn 3D programming using React and
 ThreeJS (React Three Fiber).
 
+> [!WARNING]
+> This webpage is still not completely responsive on small resolutions.
+
 ## Scripts
 
 You can run the following commands during development:
