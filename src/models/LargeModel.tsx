@@ -5,54 +5,12 @@ License: CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
 Source: https://sketchfab.com/3d-models/death-stranding-cargo-79db2b621cf742b38ade266815c2365b
 Title: Death Stranding Cargo
 */
-import { Clone, useGLTF } from '@react-three/drei'
-import { type ThreeElements } from '@react-three/fiber'
-import { useMemo, useRef } from 'react'
-import type { Group } from 'three'
-import FadingEdges from '../components/FadingEdges/FadingEdges'
-import FloatingEffector from '../components/FloatingEffector/FloatingEffector'
-import { makeTransparent } from '../utils/model'
+import { useGLTF } from '@react-three/drei'
+import BaseModel, { type BaseModelProps } from './BaseModel'
 
-type GroupProps = ThreeElements['group']
+type LargeModelProps = BaseModelProps & {}
 
-type ModelProps = GroupProps & {
-  isSelected: boolean
-  isTransparent: boolean
-}
-
-const LargeModel = ({
-  isSelected,
-  isTransparent,
-  ...props
-}: ModelProps) => {
-  const { scene } = useGLTF('/largeCargo/scene.gltf')
-  const groupRef = useRef<Group>(null)
-
-  const originalModel = useMemo(() => scene.clone(true), [scene])
-
-  const transparentModel = useMemo(() => {
-    const clone = scene.clone(true)
-    makeTransparent(clone, 0.1)
-    return clone
-  }, [scene])
-
-  return (
-    <group ref={groupRef} {...props}>
-      {/* If the Cargo is not selected, we display the original textures. */}
-      {!isSelected && !isTransparent && <Clone object={originalModel} />}
-      {/* If the Cargo is selected and it is the Model in the original position, we apply the transparency.  */}
-      {isSelected && isTransparent && (
-        <FloatingEffector>
-          <Clone object={transparentModel} inject={<FadingEdges isTransparent={isTransparent} />} />
-        </FloatingEffector>
-      )}
-      {/* If the Cargo is selected but it is not defined as transparent, it is the one in highlight. So we display the original with the highlight effect.  */}
-      {isSelected && !isTransparent && (
-        <Clone object={originalModel} inject={<FadingEdges isTransparent={isTransparent} />} />
-      )}
-    </group>
-  )
-}
+const LargeModel = (props: Omit<LargeModelProps, 'gltfPath'>) => (<BaseModel {...props} gltfPath="/largeCargo/scene.gltf" />)
 
 useGLTF.preload('/largeCargo/scene.gltf')
 
